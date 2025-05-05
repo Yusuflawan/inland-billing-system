@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Payment System" />
+    <meta name="format-detection" content="telephone=no" />
+    <!-- PAGE TITLE HERE -->
+    <title>Profile</title>
+    <!-- FAVICONS ICON -->
+    <link rel="shortcut icon" type="image/png" href="../assets/images/favicon.JPG" />
+    <link href="../assets/vendor/wow-master/css/libs/animate.css" rel="stylesheet" />
+    <link href="../assets/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../assets/vendor/bootstrap-select-country/css/bootstrap-select-country.min.css" />
+    <link rel="stylesheet" href="../assets/vendor/jquery-nice-select/css/nice-select.css" />
+    <!--swiper-slider-->
+    <link rel="stylesheet" href="../assets/vendor/swiper/css/swiper-bundle.min.css" />
+    <link href="../assets/vendor/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+    <!-- Style css -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet" />
+    <link href="../assets/css/style.css" rel="stylesheet" />
+  </head>
+
+  <body class="dark-mode">
+    <div id="preloader">
+      <div class="loader"></div>
+    </div>
+
+    <div id="main-wrapper" class="wallet-open active show">
+      <div id="theFullNav">
+        <!-- COMING FROM NAV.JS -->
+      </div>
+
+      <div class="deznav">
+        <div class="deznav-scroll">
+          <ul class="metismenu sidebarMenuuu" id="menu">
+            <!-- COMING FROM NAV.JS -->
+          </ul>
+        </div>
+      </div>
+
+      <div class="content-body">
+        <div class="container-fluid">
+            <!-- row -->
+    <div class="row">
+      <div class="col-xl-3 col-lg-4">
+        <div class="clearfix h-100">
+          <div class="card card-bx profile-card author-profile m-b30">
+            <div class="card-body">
+              <div class="p-5">
+                <div class="author-profile">
+                  <div class="author-media">
+                    <img src="../assets/images/business-owners/default-image.jpg" alt="">
+                    <div class="upload-link" title="" data-toggle="tooltip" data-placement="right" data-original-title="update">
+                      <input type="file" class="update-flie">
+                      <i class="fa fa-camera"></i>
+                    </div>
+                  </div>
+                  <div class="author-info">
+                    <h6 id="b-name" class="title"></h6>
+                    <span id="sect-name"></span>
+                  </div>
+                </div>
+              </div>
+              <div class="info-list">
+                <ul>
+                  <li style="display: flex; flex-direction: column; align-items: start; padding-top: .8rem; padding-bottom: .8rem;">
+                    <p>Email</p>
+                    <span style="margin-top: -1rem; font-size: smaller;" id="email"></span>
+                  </li>
+                  <li style="display: flex; flex-direction: column; align-items: start; padding-top: .8rem; padding-bottom: .8rem;">
+                    <p>Phone</p>
+                    <span style="margin-top: -1rem; font-size: smaller;" id="phone"></span>
+                  </li>
+                  <li style="display: flex; flex-direction: column; align-items: start; padding-top: .8rem; padding-bottom: .8rem;">
+                    <p>Address</p>
+                    <span style="margin-top: -1rem; font-size: smaller;" id="address"></span>
+                  </li>
+                  <li style="display: flex; flex-direction: column; align-items: start; padding-top: .8rem; padding-bottom: .8rem;">
+                    <p id="state"></p>
+                    <span style="margin-top: -1rem; font-size: smaller;" id="lga"></span>
+                  </li>
+                  <li style="display: flex; flex-direction: column; align-items: start; padding-top: .8rem; padding-bottom: .8rem;">
+                    <p>Tax Identification Number</p>
+                    <span style="margin-top: -1rem; font-size: smaller;" id="tin"></span>
+                  </li>
+                  <li style="display: flex; flex-direction: column; align-items: start; padding-top: .8rem; padding-bottom: .8rem;">
+                    <p>CAC Number</p>
+                    <span style="margin-top: -1rem; font-size: smaller;" id="cac"></span>
+                  </li>
+                  <li style="display: flex; flex-direction: column; align-items: start; padding-top: .8rem; padding-bottom: .8rem;">
+                    <p id="id-type"></p>
+                    <span style="margin-top: -1rem; font-size: smaller;" id="id-number"></span>
+                  </li>
+                  <li style="display: flex; flex-direction: column; padding: -1rem; align-items: start; padding-top: .8rem; padding-bottom: .8rem;">
+                    <p>Staff Quota</p>
+                    <span style="margin-top: -1rem; font-size: smaller;" id="staff-quota"></span>
+                  </li>
+                  <li style="display: flex; flex-direction: column; padding: -1rem; align-items: start; padding-top: .8rem; padding-bottom: .8rem;">
+                    <p>Created On</p>
+                    <span style="margin-top: -1rem; font-size: smaller;" id="date"></span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="card-footer">
+              <div class="input-group mb-3">
+                <div id="status" class="form-control rounded text-center bg-white">Account Status: <span></span></div>
+              </div>
+              <div class="input-group mb-3">
+                <a id="webs-name" class="form-control text-primary rounded text-center bg-white"></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-9 col-lg-8">
+        <div class="card profile-card card-bx m-b30">
+          <div class="card-header">
+            <h6 class="title">Edit Account</h6>
+          </div>
+          <form id="edit-profile-form" class="profile-form">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-sm-6 m-b30">
+                  <label for="edit-business-name">Business Name <span class="text-danger">*</span></label>
+                  <input id="edit-business-name" type="text" class="form-control" value="" required>
+                </div>
+                <div class="col-sm-6 m-b30">
+                  <label for="edit-email">Email <span class="text-danger">*</span></label>
+                  <input id="edit-email" type="text" class="form-control" value="" required>
+                </div>
+                <div class="col-sm-6 m-b30">
+                  <label for="edit-phone">Phone <span class="text-danger">*</span></label>
+                  <input id="edit-phone" type="text" class="form-control" value="" required>
+                </div>
+                <div class="col-sm-6 m-b30">
+                  <label for="edit-address">Address <span class="text-danger">*</span></label>
+                  <textarea id="edit-address"" class="form-control" value="" required></textarea>
+                </div>
+                <div class="col-sm-6 m-b30">
+                  <label for="edit-states">State <span class="text-danger">*</span></label>
+                  <select name="" id="edit-states" class="form-select" required>
+                    <!-- <option value="">All States</option> -->
+                  </select>
+                </div>
+                <div class="col-sm-6 m-b30">
+                  <label for="edit-lga">LGA <span class="text-danger">*</span></label>
+                  <select name="" id="edit-lga" class="form-select" required>
+                    <!-- <option value="">All LGA</option> -->
+                  </select>
+                </div>
+                <div class="col-sm-6 m-b30">
+                  <label for="edit-business-type">Business Type <span class="text-danger">*</span></label>
+                    <select id="edit-business-type" class="form-select" required>
+                        <!-- <option value="">Select Business Type</option> -->
+                    </select>
+                </div>
+                <div class="col-sm-6 m-b30">
+                  <label for="edit-sector">Business Sector <span class="text-danger">*</span></label>
+                  <select id="edit-sector" class="form-select" required>
+                      <option value="">Select Business Sector</option>
+                      <option value="Private">Private</option>
+                      <option value="Public">Public</option>
+                  </select>
+                </div>
+                <div class="col-sm-6 m-b30">
+                  <label for="edit-staff-quota">Staff Quota <span class="text-danger">*</span></label>
+                  <select id="edit-staff-quota" class="form-select" required>
+                      <option value="">Select Staff Quota</option>
+                      <option value="1-10">1-10</option>
+                      <option value="10-20">10-20</option>
+                      <option value="20-30">20-30</option>
+                      <option value="50-above">50-above</option>
+                  </select>
+                </div>
+                <div class="col-sm-6 m-b30">
+                  <label for="edit-cac-number">CAC Registration Number (optional)</label>
+                  <input id="edit-cac-number" type="text" class="form-control">
+                </div>
+                <div class="col-sm-6 m-b30">
+                  <label for="edit-website">Website (optional)</label>
+                  <input id="edit-website" type="text" class="form-control" value="">
+                </div>
+              </div>
+            </div>
+            <div class="card-footer">
+              <button type="submit" class="btn btn-primary">UPDATE</button>
+              <button type="button" style="border: none; background-color: transparent;" class="btn-link">Change Password</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>	
+        </div>
+    </div>
+
+
+      
+
+      <div class="footer" id="footer"></div>
+    </div>
+
+    <!--**********************************
+        Scripts
+    ***********************************-->
+    <!-- Required vendors -->
+    <script src="../assets/vendor/global/global.min.js"></script>
+    <script src="../assets/vendor/chart.js/Chart.bundle.min.js"></script>
+    <!-- <script src="../assets/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script> -->
+    <!-- Apex Chart -->
+    <script src="../assets/vendor/apexchart/apexchart.js"></script>
+    <!-- Chart piety plugin files -->
+    <script src="../assets/vendor/peity/jquery.peity.min.js"></script>
+    <!-- <script src="../assets/vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script> -->
+    <!--swiper-slider-->
+    <script src="../assets/vendor/swiper/js/swiper-bundle.min.js"></script>
+
+    <!-- Date-picker -->
+    <script src="../assets/vendor/bootstrap-datetimepicker/js/moment.js"></script>
+    <!-- <script src="../assets/vendor/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script> -->
+
+    <!-- Dashboard 1 -->
+    <script src="../assets/js/dashboard/dashboard-1.js"></script>
+    <script src="../assets/vendor/wow-master/dist/wow.min.js"></script>
+    <script src="../assets/vendor/bootstrap-datetimepicker/js/moment.js"></script>
+    <script src="../assets/vendor/bootstrap-select-country/js/bootstrap-select-country.min.js"></script>
+
+    <script src="../assets/js/deznav-2-init.js"></script>
+    <script src="../assets/js/custom.min.js"></script>
+    <script src="../assets/js/demo-2.js"></script>
+    <!-- <script src="js/styleSwitcher.js"></script> -->
+
+    <script src="../assets/js/demand-notice-progress-bar.js"></script>
+
+    <script src="../assets/js/user-nav.js"></script>
+    <script src="../assets/js/user-profile.js"></script>
+    <script>
+      displayHeaderTitile("Profile");
+    </script>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

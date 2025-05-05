@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Payment System">
+  <meta name="format-detection" content="telephone=no">
+  <!-- PAGE TITLE HERE -->
+  <title>Business Owners</title>
+  <!-- FAVICONS ICON -->
+  <link rel="shortcut icon" type="image/png" href="../assets/images/favicon.JPG">
+  <link href="../assets/vendor/wow-master/css/libs/animate.css" rel="stylesheet">
+  <link href="../assets/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/vendor/bootstrap-select-country/css/bootstrap-select-country.min.css">
+  <link rel="stylesheet" href="../assets/vendor/jquery-nice-select/css/nice-select.css">
+  <!--swiper-slider-->
+  <link rel="stylesheet" href="../assets/vendor/swiper/css/swiper-bundle.min.css">
+  <link href="../assets/vendor/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+  <!-- Style css -->
+  <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
+  <link href="../assets/css/style.css" rel="stylesheet">
+
+</head>
+
+<body class="dark-mode">
+  <div id="preloader">
+    <div class="loader"></div>
+  </div>
+
+  <div id="main-wrapper" class="wallet-open active show">
+
+    <div id="theFullNav">
+      <!-- COMING FROM NAV.JS -->
+    </div>
+
+
+    <div class="deznav">
+      <div class="deznav-scroll">
+        <ul class="metismenu sidebarMenuuu" id="menu">
+          <!-- COMING FROM NAV.JS -->
+        </ul>
+      </div>
+    </div>
+
+    <div class="content-body">
+        <div class="container-fluid pt-0">
+            <div class="row pt-4">
+
+                <div class="col-md-6 col-xl-4">
+                    <div class="card ticket">
+                        <div class="back-image">
+                            <svg width="102" height="100" viewBox="0 0 102 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g opacity="0.3">
+                            <path d="M89.3573 123.082C59.4605 115.689 41.2417 85.3438 48.6706 55.2997C56.0995 25.2556 86.3609 6.89766 116.258 14.2901C146.155 21.6826 164.373 52.028 156.944 82.0721C149.516 112.116 119.254 130.474 89.3573 123.082Z" stroke="#ffffff"/>
+                            <path d="M91.021 116.351C64.8418 109.878 48.891 83.2911 55.4008 56.964C61.9106 30.6368 88.4137 14.5476 114.593 21.0208C140.772 27.4941 156.723 54.0807 150.213 80.4078C143.703 106.735 117.2 122.824 91.021 116.351Z" stroke="#ffffff"/>
+                            <path d="M82.6265 121.417C56.4473 114.944 40.4965 88.3576 47.0063 62.0304C53.5161 35.7033 80.0191 19.6141 106.198 26.0873C132.378 32.5605 148.328 59.1471 141.819 85.4743C135.309 111.801 108.806 127.891 82.6265 121.417Z" stroke="#0000FF"/>
+                            <path d="M73.9723 126.42C47.9385 119.983 32.1005 93.4265 38.6109 67.0969C45.1213 40.7672 71.5104 24.6525 97.5442 31.0897C123.578 37.527 139.416 64.0831 132.906 90.4127C126.395 116.742 100.006 132.857 73.9723 126.42Z" stroke="#0000FF"/>
+                            <path d="M65.3189 131.422C39.1396 124.949 23.1888 98.3625 29.6986 72.0353C36.2084 45.7082 62.7115 29.6189 88.8908 36.0922C115.07 42.5654 131.021 69.152 124.511 95.4792C118.001 121.806 91.4981 137.896 65.3189 131.422Z" stroke="#0000FF"/>
+                            <path d="M56.6647 136.425C30.6309 129.987 14.7929 103.431 21.3033 77.1017C27.8137 50.7721 54.2027 34.6573 80.2365 41.0946C106.27 47.5318 122.108 74.0879 115.598 100.418C109.088 126.747 82.6985 142.862 56.6647 136.425Z" stroke="#0000FF"/>
+                            <circle cx="59.7333" cy="94.0209" r="48.8339" transform="rotate(103.889 59.7333 94.0209)" stroke="#0000FF"/>
+                            </g>
+                            </svg>
+                        </div>
+                        <div class="card-body">
+                            <div class="title">
+                            <svg class="rounded" width="9" height="8" viewBox="0 0 9 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="0.425781" width="8" height="8" fill="#000000"/>
+                            </svg>
+                            <h4 style="color: #333;">Total Number of Business Owners</h4>
+                            </div>
+                            <div class="chart-num">
+                            <h2 id="busines-owners-count" style="color: #333;"></h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+ 
+                <div class="col-md-6 col-xl-4">
+                    <div class="card ticket ">
+                        <div class="back-image">
+                        <svg width="102" height="100" viewBox="0 0 102 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g opacity="0.3">
+                            <path d="M89.3573 123.082C59.4605 115.689 41.2417 85.3438 48.6706 55.2997C56.0995 25.2556 86.3609 6.89766 116.258 14.2901C146.155 21.6826 164.373 52.028 156.944 82.0721C149.516 112.116 119.254 130.474 89.3573 123.082Z" stroke="#ffffff"/>
+                            <path d="M91.021 116.351C64.8418 109.878 48.891 83.2911 55.4008 56.964C61.9106 30.6368 88.4137 14.5476 114.593 21.0208C140.772 27.4941 156.723 54.0807 150.213 80.4078C143.703 106.735 117.2 122.824 91.021 116.351Z" stroke="#ffffff"/>
+                            <path d="M82.6265 121.417C56.4473 114.944 40.4965 88.3576 47.0063 62.0304C53.5161 35.7033 80.0191 19.6141 106.198 26.0873C132.378 32.5605 148.328 59.1471 141.819 85.4743C135.309 111.801 108.806 127.891 82.6265 121.417Z" stroke="#00FF00"/>
+                            <path d="M73.9723 126.42C47.9385 119.983 32.1005 93.4265 38.6109 67.0969C45.1213 40.7672 71.5104 24.6525 97.5442 31.0897C123.578 37.527 139.416 64.0831 132.906 90.4127C126.395 116.742 100.006 132.857 73.9723 126.42Z" stroke="#00FF00"/>
+                            <path d="M65.3189 131.422C39.1396 124.949 23.1888 98.3625 29.6986 72.0353C36.2084 45.7082 62.7115 29.6189 88.8908 36.0922C115.07 42.5654 131.021 69.152 124.511 95.4792C118.001 121.806 91.4981 137.896 65.3189 131.422Z" stroke="#00FF00"/>
+                            <path d="M56.6647 136.425C30.6309 129.987 14.7929 103.431 21.3033 77.1017C27.8137 50.7721 54.2027 34.6573 80.2365 41.0946C106.27 47.5318 122.108 74.0879 115.598 100.418C109.088 126.747 82.6985 142.862 56.6647 136.425Z" stroke="#00FF00"/>
+                            <circle cx="59.7333" cy="94.0209" r="48.8339" transform="rotate(103.889 59.7333 94.0209)" stroke="#00FF00"/>
+                            </g>
+                        </svg>
+                        </div>
+                        <div class="card-body">
+                        <div class="title">
+                            <svg class="rounded" width="9" height="8" viewBox="0 0 9 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="0.425781" width="8" height="8" fill="black"/>
+                            </svg>
+                            <h4 style="color: #333;">Active Business Owners</h4>
+                        </div>
+                        <div  class="chart-num">
+                            <h2 id="active-busines-owners-count" style="color: #333;">102</h2>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-xl-4">
+                    <div class="card ticket ">
+                        <div class="back-image">
+                            <svg width="102" height="100" viewBox="0 0 102 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g opacity="0.3">
+                            <path d="M89.3573 123.082C59.4605 115.689 41.2417 85.3438 48.6706 55.2997C56.0995 25.2556 86.3609 6.89766 116.258 14.2901C146.155 21.6826 164.373 52.028 156.944 82.0721C149.516 112.116 119.254 130.474 89.3573 123.082Z" stroke="#ffffff"/>
+                            <path d="M91.021 116.351C64.8418 109.878 48.891 83.2911 55.4008 56.964C61.9106 30.6368 88.4137 14.5476 114.593 21.0208C140.772 27.4941 156.723 54.0807 150.213 80.4078C143.703 106.735 117.2 122.824 91.021 116.351Z" stroke="#ffffff"/>
+                            <path d="M82.6265 121.417C56.4473 114.944 40.4965 88.3576 47.0063 62.0304C53.5161 35.7033 80.0191 19.6141 106.198 26.0873C132.378 32.5605 148.328 59.1471 141.819 85.4743C135.309 111.801 108.806 127.891 82.6265 121.417Z" stroke="#FF0000"/>
+                            <path d="M73.9723 126.42C47.9385 119.983 32.1005 93.4265 38.6109 67.0969C45.1213 40.7672 71.5104 24.6525 97.5442 31.0897C123.578 37.527 139.416 64.0831 132.906 90.4127C126.395 116.742 100.006 132.857 73.9723 126.42Z" stroke="#FF0000"/>
+                            <path d="M65.3189 131.422C39.1396 124.949 23.1888 98.3625 29.6986 72.0353C36.2084 45.7082 62.7115 29.6189 88.8908 36.0922C115.07 42.5654 131.021 69.152 124.511 95.4792C118.001 121.806 91.4981 137.896 65.3189 131.422Z" stroke="#FF0000"/>
+                            <path d="M56.6647 136.425C30.6309 129.987 14.7929 103.431 21.3033 77.1017C27.8137 50.7721 54.2027 34.6573 80.2365 41.0946C106.27 47.5318 122.108 74.0879 115.598 100.418C109.088 126.747 82.6985 142.862 56.6647 136.425Z" stroke="#FF0000"/>
+                            <circle cx="59.7333" cy="94.0209" r="48.8339" transform="rotate(103.889 59.7333 94.0209)" stroke="#FF0000"/>
+                            </g>
+                            </svg>
+                        </div>
+                        <div class="card-body">
+                            <div class="title">
+                                <svg class="rounded" width="9" height="8" viewBox="0 0 9 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <rect x="0.425781" width="8" height="8" fill="black"/>
+                                </svg>
+                                <h4 style="color: #333;">Inactive Business Owners</h4>
+                            </div>
+                            <div  class="chart-num">
+                                <h2 id="inactive-busines-owners-count" style="color: #333;"></h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            
+                                
+                <div class="col-xl-12 wow fadeInUp" data-wow-delay="1.5s">
+                    <div class="table-responsive  full-data">
+                        <table class="table-responsive-lg table display mb-4 dataTablesCard  text-black dataTable no-footer" id="example6" >
+                            <thead>
+                                <tr>
+                                    <th>S/N</th>
+                                    <th>Business Name</th>
+                                    <th>Email</th>
+                                    <th>TIN</th>
+                                    <th>Date Created</th>
+                                    <th>Status</th>
+                                    <th>Agent</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer" id="footer">
+    </div>
+
+
+  </div>
+
+  <!-- New Tax Payer Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">New Business Owner</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="mb-3 d-block">
+                <label  class="form-label d-block mb-2">First Name</label>
+                <input type="text" class="form-control w-100 mb-0">
+            </div>
+            <div class="mb-3 d-block">
+                <label  class="form-label d-block mb-2">Last Name</label>
+                <input type="text" class="form-control w-100 mb-0">
+            </div>
+            <div class="mb-3 d-block">
+                <label  class="form-label d-block mb-2">Email</label>
+                <input type="email" class="form-control w-100 mb-0">
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  
+  <!-- Tax Payer info Modal -->
+  <div class="modal fade" id="taxPayerInfo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Business Owner Profile</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="mb-3 d-block">
+                <label  class="form-label d-block mb-2">First Name</label>
+                <input type="text" class="form-control w-100 mb-0">
+            </div>
+            <div class="mb-3 d-block">
+                <label  class="form-label d-block mb-2">Last Name</label>
+                <input type="text" class="form-control w-100 mb-0">
+            </div>
+            <div class="mb-3 d-block">
+                <label  class="form-label d-block mb-2">Email</label>
+                <input type="email" class="form-control w-100 mb-0">
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--**********************************
+        Scripts
+    ***********************************-->
+  <!-- Required vendors -->
+  <script src="../assets/vendor/global/global.min.js"></script>
+  <script src="../assets/vendor/chart.js/Chart.bundle.min.js"></script>
+  <script src="../assets/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+  <!-- Apex Chart -->
+  <script src="../assets/vendor/apexchart/apexchart.js"></script>
+  <!-- Chart piety plugin files -->
+  <script src="../assets/vendor/peity/jquery.peity.min.js"></script>
+  <script src="../assets/vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script>
+  <!--swiper-slider-->
+  <script src="../assets/vendor/swiper/js/swiper-bundle.min.js"></script>
+
+  <!-- Date-picker -->
+  <script src="../assets/vendor/bootstrap-datetimepicker/js/moment.js"></script>
+  <script src="../assets/vendor/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+
+  <!-- Dashboard 1 -->
+  <script src="../assets/js/dashboard/dashboard-1.js"></script>
+  <script src="../assets/vendor/wow-master/dist/wow.min.js"></script>
+  <script src="../assets/vendor/bootstrap-datetimepicker/js/moment.js"></script>
+  <script src="../assets/vendor/bootstrap-select-country/js/bootstrap-select-country.min.js"></script>
+
+  <script src="../assets/js/deznav-2-init.js"></script>
+  <script src="../assets/js/custom.min.js"></script>
+  <script src="../assets/js/demo-2.js"></script>
+  <!-- <script src="js/styleSwitcher.js"></script> -->
+
+  <script>
+    displayHeaderTitile('Business Owners') 
+  </script>
+  
+  <script src="../assets/js/nav.js"></script>
+  <script src="../assets/js/admin-business-owners.js"></script>
+  
+
+</body>
+
+</html>

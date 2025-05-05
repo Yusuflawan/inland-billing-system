@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Payment System">
+  <meta name="format-detection" content="telephone=no">
+  <!-- PAGE TITLE HERE -->
+  <title>Create Demand Notice</title>
+  <!-- FAVICONS ICON -->
+  <link rel="shortcut icon" type="image/png" href="../assets/images/favicon.JPG">
+  <link href="../assets/vendor/wow-master/css/libs/animate.css" rel="stylesheet">
+  <link href="../assets/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/vendor/bootstrap-select-country/css/bootstrap-select-country.min.css">
+  <link rel="stylesheet" href="../assets/vendor/jquery-nice-select/css/nice-select.css">
+  <!--swiper-slider-->
+  <link rel="stylesheet" href="../assets/vendor/swiper/css/swiper-bundle.min.css">
+  <link href="../assets/vendor/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+  <!-- Style css -->
+  <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
+  <link href="../assets/css/style.css" rel="stylesheet">
+
+</head>
+
+<body class="dark-mode">
+  <div id="preloader">
+    <div class="loader"></div>
+  </div>
+
+  <div id="main-wrapper" class="wallet-open active show">
+
+    <div id="theFullNav">
+      <!-- COMING FROM NAV.JS -->
+    </div>
+
+
+    <div class="deznav">
+      <div class="deznav-scroll">
+        <ul class="metismenu sidebarMenuuu" id="menu">
+          <!-- COMING FROM NAV.JS -->
+        </ul>
+      </div>
+    </div>
+ 
+    <div class="content-body">
+      <!-- row -->
+      <div class="container-fluid pt-0">
+
+        <div class="row">
+          <div class="col-xl-12">
+              <div class="page-titles">
+                <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb">
+                    <li class="breadcrumb-item ps-0"><a href="invoice.html#">Demand Notice</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Create New Demand Notice</li>
+                  </ol>
+                </nav>
+              </div>
+          </div>
+        </div>
+
+        <div class="row d-flex justify-content-center">
+          <!-- <div class="col-xl-12"> -->
+            <div class="col-xl-8">
+              <div class="card h-auto">
+                <div class="card-body">
+                  <div class="profile-tab">
+                    <div class="custom-tab-1">
+                      <!-- Tabs for Automatic and Manual Filling -->
+                      <ul class="nav nav-tabs">
+                        <li class="nav-item">
+                          <a href="#automatic-filling" data-bs-toggle="tab" class="nav-link active show">Automatic Filling</a>
+                        </li>
+                        <li class="nav-item">
+                          <a href="#manual-filling" id="manual-fill" data-bs-toggle="tab" class="nav-link">Manual Filling</a>
+                        </li>
+                      </ul>
+                      
+                      <div class="tab-content">
+                        <!-- Automatic Filling Tab -->
+                        <div id="automatic-filling" class="tab-pane fade active show">
+                          <div class="pt-3">
+                            <form id="automatic-filling-form">
+                              <div class="mb-3">
+                                <label class="form-label">TIN (Tax Identification Number)</label>
+                                <input type="text" id="tin" required placeholder="Enter TIN" class="form-control" />
+                              </div>
+                              
+                              <div id="auto-details" class="d-none">
+                                <div class="mb-3">
+                                  <label class="form-label">Revenue Head</label>
+                                  <select name="" id="revenue-head" class="form-select">
+                                    <option value="" disabled selected>Select the Revenue Head</option>
+                                  </select>
+                                </div>
+                                <div class="mb-3">
+                                  <label class="form-label">Amount</label>
+                                  <input name="" id="amount" readonly placeholder="Auto Fill Amount" class="form-control">
+                                </div>
+                                <div class="mb-3">
+                                  <label class="form-label">Business Owner</label>
+                                  <input type="text" id="business-owner" readonly placeholder="Auto Fill Business Owner" class="form-control" /> 
+                                </div>
+                                <div class="mb-3">
+                                  <label class="form-label">Email</label>
+                                  <input type="email" id="email" readonly placeholder="Auto Fill Email" class="form-control" /> 
+                                </div>
+                                <div class="mb-3">
+                                  <label class="form-label">Phone</label>
+                                  <input type="phone" id="phone" readonly placeholder="Auto Fill Phone Number" class="form-control" /> 
+                                </div>
+                                <div class="mb-3">
+                                  <label class="form-label">Address</label>
+                                  <input type="text" id="address" readonly placeholder="Auto Fill Address" class="form-control" /> 
+                                </div>
+                                <div class="mb-3">
+                                  <label class="form-label">Description</label>
+                                  <input type="text" id="description" placeholder="Enter Description" class="form-control" /> 
+                                </div>                                
+                              </div>
+                              <button type="submit" id="createBtn" class="btn btn-primary d-none">Submit</button>
+                              <button type="button" id="search-button" class="btn btn-primary" onclick="fetchBusinessOwner()">Search</button>
+                            </form>
+                  
+                            <div id="auto-filled-details" class="mt-4 d-none">
+                              <h5>Fetched Business Details</h5>
+                              <form>
+                                <div class="mb-3">
+                                  <label class="form-label">Business Name</label>
+                                  <input type="text" id="business-owner" disabled placeholder="Business Name" class="form-control" />
+                                </div>
+                                <div class="row">
+                                  <div class="mb-3 col-md-6">
+                                    <label class="form-label">Email</label>
+                                    <input type="email" id="email" disabled placeholder="Email" class="form-control" />
+                                  </div>
+                                  <div class="mb-3 col-md-6">
+                                    <label class="form-label">Phone</label>
+                                    <input type="text" id="phone" disabled placeholder="Phone" class="form-control" />
+                                  </div>
+                                </div>
+                                <div class="mb-3">
+                                  <label class="form-label">Address</label>
+                                  <input type="text" id="address" disabled placeholder="Address" class="form-control" />
+                                </div>
+                                <div class="row">
+                                  <div class="mb-3 col-md-6">
+                                    <label class="form-label">State</label>
+                                    <input type="text" id="state" disabled placeholder="State" class="form-control" />
+                                  </div>
+                                  <div class="mb-3 col-md-6">
+                                    <label class="form-label">LGA</label>
+                                    <input type="text" id="lga" disabled placeholder="LGA" class="form-control" />
+                                  </div>
+                                </div>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                  
+                        <!-- Manual Filling Tab -->
+                        <div id="manual-filling" class="tab-pane fade">
+                          <!-- <p>Under Maintenance</p> -->
+                          <div class="pt-3">
+                            <form id="manual-filling-form">
+                              <div class="mb-3">
+                                <label class="form-label">Business Name</label>
+                                <input type="text" id="manual-business-name" placeholder="Enter Business Name" class="form-control" required />
+                              </div>
+                              <div class="row">
+                                <div class="mb-3 col-md-6">
+                                  <label class="form-label">Email</label>
+                                  <input type="email" id="manual-email" placeholder="Enter Email" class="form-control" required />
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                  <label class="form-label">Phone</label>
+                                  <input type="text" id="manual-phone" placeholder="Enter Phone" class="form-control" required />
+                                </div>
+                              </div>
+                              <div class="mb-3">
+                                <label class="form-label">Address</label>
+                                <input type="text" id="manual-address" placeholder="Enter Address" class="form-control" required />
+                              </div>
+                              <div class="row">
+                                <div class="mb-3 col-md-6">
+                                  <label class="form-label">State</label>
+                                  <select name="" id="manual-states" class="form-select">
+                                    <option value="" disabled selected>State</option>
+                                  </select>
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                  <label for="lga">LGA <span class="text-danger">*</span></label>
+                                  <select name="" id="manual-lga" class="form-select">
+                                    <option value="">All LGA</option>
+                                  </select>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="mb-3 col-md-6 d-flex flex-column">
+                                  <label>Select your preferred ID type <span class="text-danger">*</span></label>
+                                  <div class="check-bx d-flex">
+                                    <div class="form-check">
+                                        <input required class="form-check-input" name="identityType" type="radio" value="NIN" id="manual-nin-check">
+                                        <label class="form-check-label" for="ninCheck" style="margin-right: 2rem;">NIN</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input required class="form-check-input" name="identityType" type="radio" value="BVN" id="manualmanual-bvn-check">
+                                        <label class="form-check-label" for="bvnCheck">BVN</label>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                  <label for="idNumber">ID Number <span class="text-danger">*</span></label>
+                                  <input id="manual-id-number" type="text" class="form-control" required placeholder="Enter the selected ID number">
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="mb-3 col-md-6">
+                                  <label for="manual-business-type">Business Type <span class="text-danger">*</span></label>
+                                  <select id="manual-business-type" class="form-select" required>
+                                      <option value="">Select Business Type</option>
+                                  </select>
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                  <label for="sector">Business Sector <span class="text-danger">*</span></label>
+                                  <select id="manual-sector" class="form-select" required>
+                                      <option value="">Select Business Sector</option>
+                                      <option value="Private">Private</option>
+                                      <option value="Public">Public</option>
+                                  </select>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="mb-3 col-md-6">
+                                  <label for="staffQuota">Staff Quota <span class="text-danger">*</span></label>
+                                  <select id="manual-staff-quota" class="form-select" required>
+                                      <option value="">Select Staff Quota</option>
+                                      <option value="1-10">1-10</option>
+                                      <option value="10-20">10-20</option>
+                                      <option value="20-30">20-30</option>
+                                      <option value="50-above">50-above</option>
+                                  </select>
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label for="website">Website (optional)</label>
+                                    <input id="manual-website" type="text" class="form-control" placeholder="Enter the website address">
+                                </div>
+                              </div>
+                              <div class="row mx-1 mb-4">
+                                <label for="cacNumber">CAC Registration Number (optional)</label>
+                                <input id="manual-cac-number" type="text" class="form-control" placeholder="Enter CAC number if available">
+                              </div>
+                              <div class="row mx-1 mb-4">
+                                <label for="password">Password</label>
+                                <input id="manual-password" type="text" class="form-control" placeholder="Enter Password">
+                              </div>
+                              <button type="submit" class="btn btn-primary">Get TIN</button>
+                            </form>
+                          </div>
+
+                          <div class="create-manual-demand-notice" style="display: none;">
+                            <form action="" id="new-demand-notice-form">
+                              <h3>Create Demand Notice</h3>
+                              <div class="mb-3">
+                                <label class="form-label">Business Name</label>
+                                <input type="text" id="new-business-name" placeholder="Enter Business Name" class="form-control" required />
+                              </div>
+                              <div class="mb-3">
+                                <label class="form-label">TIN (Tax Identification Number)</label>
+                                <input type="text" id="new-tin" required placeholder="Enter TIN" class="form-control" />
+                              </div>
+                              <div class="mb-3">
+                                <label class="form-label">Revenue Head</label>
+                                <select name="" id="new-revenue-head" class="form-select">
+                                  <option value="" disabled selected>Select the Revenue Head</option>
+                                </select>
+                              </div>
+                              <div class="mb-3">
+                                <label class="form-label">Amount</label>
+                                <input name="" id="new-amount" readonly placeholder="Auto Fill Amount" class="form-control">
+                              </div>
+
+                              <div class="mb-3">
+                                <label class="form-label">Description</label>
+                                <input type="text" id="new-description" placeholder="Enter Description" class="form-control" /> 
+                              </div>
+
+                              <button type="submit" class="btn btn-primary">Create</button>
+                            </form>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <!-- </div> -->
+        </div>
+      </div>
+    </div>
+
+  
+
+  <!--**********************************
+        Scripts
+    ***********************************-->
+  <!-- Required vendors -->
+  <script src="../assets/vendor/global/global.min.js"></script>
+  <script src="../assets/vendor/chart.js/Chart.bundle.min.js"></script>
+  <!-- <script src="../assets/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script> -->
+  <!-- Apex Chart -->
+  <!-- <script src="../assets/vendor/apexchart/apexchart.js"></script> -->
+  <!-- Chart piety plugin files -->
+  <script src="../assets/vendor/peity/jquery.peity.min.js"></script>
+  <script src="../assets/vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script>
+  <!--swiper-slider-->
+  <script src="../assets/vendor/swiper/js/swiper-bundle.min.js"></script>
+
+  <!-- Date-picker -->
+  <script src="../assets/vendor/bootstrap-datetimepicker/js/moment.js"></script>
+  <script src="../assets/vendor/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+
+  <!-- Dashboard 1 -->
+  <script src="../assets/js/dashboard/dashboard-1.js"></script>
+  <script src="../assets/vendor/wow-master/dist/wow.min.js"></script>
+  <script src="../assets/vendor/bootstrap-datetimepicker/js/moment.js"></script>
+  <script src="../assets/vendor/bootstrap-select-country/js/bootstrap-select-country.min.js"></script>
+
+  <script src="../assets/js/deznav-2-init.js"></script>
+  <script src="../assets/js/custom.min.js"></script>
+  <script src="../assets/js/demo-2.js"></script>
+  <!-- <script src="js/styleSwitcher.js"></script> -->
+
+  <script src="../assets/js/demand-notice-progress-bar.js"></script>
+  <script src="../assets/js/create-demand-notice.js"></script>
+
+  <script src="../assets/js/agent-nav.js"></script>
+  <script>
+    displayHeaderTitile('Create Demand Notice') 
+  </script>
+
+</body>
+
+</html>
+
+

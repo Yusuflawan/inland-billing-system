@@ -1,0 +1,196 @@
+
+  const adminId = localStorage.getItem("adminId");
+  const token = localStorage.getItem("token");
+
+
+document.addEventListener("DOMContentLoaded", async () => {
+
+  if (!token) {
+    window.location.href = "index.html";
+    return;
+  }
+
+  try {
+    const response = await fetch(`${basePath}/admin/profile`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error("Unauthorized or failed to fetch");
+    }
+
+    const result = await response.json();
+    const admin = result.data;
+    console.log(admin);
+
+    document.querySelector("#name").innerText = admin.first_name + " " + admin.last_name || "admin Name";
+    document.querySelector("#role").innerText = admin.role || "Role";
+    document.querySelector(".info-list ul #email").innerText = admin.email || "Email";
+    document.querySelector(".info-list ul #phone").innerText = admin.phone || "Phone";
+    document.querySelector(".info-list ul #address").innerText = admin.address || "Address";
+    document.querySelector(".info-list ul #state").innerText = admin.state_name || "State";
+    document.querySelector(".info-list ul #lga").innerText = admin.lga_name + " LGA" || "LGA";
+    document.querySelector(".info-list ul #date").innerText = admin.created_at || "Date Created";
+    // document.querySelector(".card-footer #status span").innerText = admin.status || "Status";
+    // document.querySelector(".card-footer #status span").classList.add(admin.status === "Active" ? "text-success" : "text-danger");
+
+
+    document.querySelector(".profile-form #edit-first-name").value = admin.first_name || "First Name";
+    document.querySelector(".profile-form #edit-last-name").value = admin.last_name || "Last Name";
+    document.querySelector(".profile-form #edit-email").value = admin.email || "Email";
+    document.querySelector(".profile-form #edit-phone").value = admin.phone || "Phone";
+    document.querySelector(".profile-form #edit-address").value = admin.address || "Address";
+
+
+    const stateSelect = document.querySelector(".profile-form #edit-states");
+    const lgaSelect = document.querySelector(".profile-form #edit-lga");
+
+    const states = await getStates();
+    console.log(states);
+
+    states.forEach(state => {
+      const option = document.createElement("option");
+      option.value = state.id;
+      option.textContent = state.state;
+      stateSelect.appendChild(option);
+    });
+
+    // console.log(stateSelect)
+    
+    if (admin.state) {
+        stateSelect.value = admin.state;
+
+        const lgas = await getLgas(admin.state);
+        lgas.forEach(lga => {
+            const option = document.createElement("option");
+            option.value = lga.id;
+            option.textContent = lga.lga;
+            lgaSelect.appendChild(option);
+        });
+
+        if (admin.lga) {
+            lgaSelect.value = admin.lga;
+        }
+
+    }
+
+    stateSelect.addEventListener("change", async (event) => {
+      const selectedStateId = event.target.value;
+      lgaSelect.innerHTML = ""; // Clear previous options
+
+      const lgas = await getLgas(selectedStateId);
+      lgas.forEach(lga => {
+          const option = document.createElement("option");
+          option.value = lga.id;
+          option.textContent = lga.lga;
+          lgaSelect.appendChild(option);
+      });
+      }
+  );
+
+  } catch (error) {
+    console.error("Error fetching agent:", error);
+  }
+
+});
+
+
+const getStates = async () => {
+  try {
+    const response = await fetch(`${basePath}/states`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      }
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error("Failed to fetch states:", errorText);
+      throw new Error("Failed to fetch states");
+    }
+
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    console.error("Error fetching states:", error);
+    return null; // or {} depending on what you want
+  }
+}
+
+// console.log("States: ", getStates());
+
+const getLgas = async (stateId) => {
+  try {
+    const response = await fetch(`${basePath}/state/lgas/${stateId}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch LGAs");
+    }
+
+    const result = await response.json();
+    return result.data;
+  }
+  catch (error) {
+    console.error("Error fetching LGAs:", error);
+  }
+}
+
+document.getElementById("edit-profile-form").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  // Collect form data
+  const formData = {
+    first_name: document.querySelector(".profile-form #edit-first-name").value,
+    last_name: document.querySelector(".profile-form #edit-last-name").value,
+    email: document.querySelector(".profile-form #edit-email").value,
+    phone: document.querySelector(".profile-form #edit-phone").value,
+    address: document.querySelector(".profile-form #edit-address").value,
+    state: document.querySelector(".profile-form #edit-states").value,
+    lga: document.querySelector(".profile-form #edit-lga").value,
+  };
+  console.log(formData);
+  try {
+
+    const response = await fetch(`${basePath}/admin/${adminId}/update-profile`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+      body: JSON.stringify(formData)
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to update profile");
+    }
+
+    const result = await response.json();
+
+    if (result.status == "success") {
+      alert("Profile updated successfully");
+    }
+
+    if (result.status == "error") {
+      alert(result.message);
+    }
+
+    console.log("Profile updated successfully:", result);
+
+  } catch (error) {
+    console.error("Error editing business owner:", error);
+  }
+  
+});
+

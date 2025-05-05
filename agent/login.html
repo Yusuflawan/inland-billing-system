@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en" class="h-100">
+
+<head>
+     	
+    <meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="keywords" content="">
+	<meta name="author" content="">
+	<meta name="robots" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="" >
+	<meta property="og:title" content="" >
+	<meta property="og:description" content="" >
+	<meta property="og:image" content="" >
+	<meta name="format-detection" content="telephone=no">
+	<!-- PAGE TITLE HERE -->
+	<title>Login</title>
+	<!-- FAVICONS ICON -->
+	<link rel="shortcut icon" type="image/png" href="../assets/images/favicon.JPG" >
+	<link href="../assets/vendor/wow-master/css/libs/animate.css" rel="stylesheet">
+	<link href="../assets/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="../assets/vendor/bootstrap-select-country/css/bootstrap-select-country.min.css">
+	<link rel="stylesheet" href="../assets/vendor/jquery-nice-select/css/nice-select.css">
+	<!--swiper-slider-->
+	<link rel="stylesheet" href="../assets/vendor/swiper/css/swiper-bundle.min.css">
+	<link href="../assets/vendor/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+	<!-- Style css -->
+	<link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
+    <link href="../assets/css/style.css" rel="stylesheet">
+
+</head>
+
+<body class="body  h-100">
+	<div class="container-fluid h-100">
+		<div class="row h-100 align-items-center justify-contain-center">
+			<div class="col-xl-12">
+				<div class="card main-width">
+					<div class="card-body  p-0">
+						<div class="row m-0">
+							<div class="col-xl-4 col-lg-4">
+								<div class="card">
+									<div class="card-body">								
+										<div class="d-flex align-items-center justify-content-center mb-4">
+											<a href="index.html">
+												<img style="width: 8rem; height: 8rem; border-radius: 50%;" src="../assets/images/ministry-logo.JPG" alt="">
+											</a>
+										</div>
+										<form id="loginForm" class="mt-4">
+										  <div class="form-group mb-4">
+											<label for="email">Email address</label>
+											<input type="email" class="form-control" id="email"  placeholder="Enter Email">
+										  </div>
+										  <div class="form-group mb-4">
+											<label for="password">Password</label>
+											<input type="password" class="form-control" id="password" placeholder="Password">
+										  </div>
+										  <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap"> 
+											  <div class="form-check">
+												<input type="checkbox" class="form-check-input" id="exampleCheck1">
+												<label class="form-check-label font-w400" for="exampleCheck1">keep me signed in</label>
+											  </div>
+											  <span><a href="page-forgot-password.html" class="text-primary font-w500 c-pointer">Forget Password ?</a></span>
+										 </div>
+											<button type="submit" class="btn btn-primary btn-block mb-4"><i class="fa-solid fa-lock text-white me-2"></i>Login</button>
+											<p id="message" style="color: red;"></p>
+										</form>
+									</div>
+								</div>
+							</div>
+							<div class="col-xl-8 col-lg-8 position-relative bg-secondary login-border">
+								<div class="d-flex flex-column justify-content-between h-100">
+									<div class="content text-center py-4">
+										<h2 class="text-white mb-0">Welcome To Your Tax System.</h2>
+										<p class="text-white" style="width: 80%; margin-left: 10%;">Securely manage tax assessments, demand notices, and payment records. Authorized users may log in to access their dashboard and asigned services.</p>
+									</div>
+									<div class="login-media-1">
+										<!-- <img src="../images/login-index.png" alt=""> -->
+										<svg class="dot-svg" width="40" height="40" viewBox="0 0 89 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<circle cx="2.5" cy="2.5" r="2.5" fill="#D9D9D9"/>
+											<circle cx="23.5" cy="2.5" r="2.5" fill="#D9D9D9"/>
+											<circle cx="44.5" cy="2.5" r="2.5" fill="#D9D9D9"/>
+											<circle cx="65.5" cy="2.5" r="2.5" fill="#D9D9D9"/>
+											<circle cx="86.5" cy="2.5" r="2.5" fill="#D9D9D9"/>
+											<circle cx="2.5" cy="87.5" r="2.5" fill="#D9D9D9"/>
+											<circle cx="23.5" cy="87.5" r="2.5" fill="#D9D9D9"/>
+											<circle cx="44.5" cy="87.5" r="2.5" fill="#D9D9D9"/>
+											<circle cx="65.5" cy="87.5" r="2.5" fill="#D9D9D9"/>
+											<circle cx="86.5" cy="87.5" r="2.5" fill="#D9D9D9"/>
+											<circle cx="2.5" cy="70.5" r="2.5" fill="#D9D9D9"/>
+											<circle cx="23.5" cy="70.5" r="2.5" fill="#D9D9D9"/>
+											<circle cx="44.5" cy="70.5" r="2.5" fill="#D9D9D9"/>
+											<circle cx="65.5" cy="70.5" r="2.5" fill="#D9D9D9"/>
+											<circle cx="86.5" cy="70.5" r="2.5" fill="#D9D9D9"/>
+											<circle cx="2.5" cy="19.5" r="2.5" fill="#D9D9D9"/>
+											<circle cx="23.5" cy="19.5" r="2.5" fill="#D9D9D9"/>
+											<circle cx="44.5" cy="19.5" r="2.5" fill="#D9D9D9"/>
+											<circle cx="65.5" cy="19.5" r="2.5" fill="#D9D9D9"/>
+											<circle cx="86.5" cy="19.5" r="2.5" fill="#D9D9D9"/>
+											<circle cx="2.5" cy="36.5" r="2.5" fill="#D9D9D9"/>
+											<circle cx="23.5" cy="36.5" r="2.5" fill="#D9D9D9"/>
+											<circle cx="44.5" cy="36.5" r="2.5" fill="#D9D9D9"/>
+											<circle cx="65.5" cy="36.5" r="2.5" fill="#D9D9D9"/>
+											<circle cx="86.5" cy="36.5" r="2.5" fill="#D9D9D9"/>
+											<circle cx="2.5" cy="53.5" r="2.5" fill="#D9D9D9"/>
+											<circle cx="23.5" cy="53.5" r="2.5" fill="#D9D9D9"/>
+											<circle cx="44.5" cy="53.5" r="2.5" fill="#D9D9D9"/>
+											<circle cx="65.5" cy="53.5" r="2.5" fill="#D9D9D9"/>
+											<circle cx="86.5" cy="53.5" r="2.5" fill="#D9D9D9"/>
+											</svg>
+											<svg class="dot-svg-end" width="40" height="40" viewBox="0 0 89 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<circle cx="2.5" cy="2.5" r="2.5" fill="#D9D9D9"/>
+											<circle cx="23.5" cy="2.5" r="2.5" fill="#D9D9D9"/>
+											<circle cx="44.5" cy="2.5" r="2.5" fill="#D9D9D9"/>
+											<circle cx="65.5" cy="2.5" r="2.5" fill="#D9D9D9"/>
+											<circle cx="86.5" cy="2.5" r="2.5" fill="#D9D9D9"/>
+											<circle cx="2.5" cy="87.5" r="2.5" fill="#D9D9D9"/>
+											<circle cx="23.5" cy="87.5" r="2.5" fill="#D9D9D9"/>
+											<circle cx="44.5" cy="87.5" r="2.5" fill="#D9D9D9"/>
+											<circle cx="65.5" cy="87.5" r="2.5" fill="#D9D9D9"/>
+											<circle cx="86.5" cy="87.5" r="2.5" fill="#D9D9D9"/>
+											<circle cx="2.5" cy="70.5" r="2.5" fill="#D9D9D9"/>
+											<circle cx="23.5" cy="70.5" r="2.5" fill="#D9D9D9"/>
+											<circle cx="44.5" cy="70.5" r="2.5" fill="#D9D9D9"/>
+											<circle cx="65.5" cy="70.5" r="2.5" fill="#D9D9D9"/>
+											<circle cx="86.5" cy="70.5" r="2.5" fill="#D9D9D9"/>
+											<circle cx="2.5" cy="19.5" r="2.5" fill="#D9D9D9"/>
+											<circle cx="23.5" cy="19.5" r="2.5" fill="#D9D9D9"/>
+											<circle cx="44.5" cy="19.5" r="2.5" fill="#D9D9D9"/>
+											<circle cx="65.5" cy="19.5" r="2.5" fill="#D9D9D9"/>
+											<circle cx="86.5" cy="19.5" r="2.5" fill="#D9D9D9"/>
+											<circle cx="2.5" cy="36.5" r="2.5" fill="#D9D9D9"/>
+											<circle cx="23.5" cy="36.5" r="2.5" fill="#D9D9D9"/>
+											<circle cx="44.5" cy="36.5" r="2.5" fill="#D9D9D9"/>
+											<circle cx="65.5" cy="36.5" r="2.5" fill="#D9D9D9"/>
+											<circle cx="86.5" cy="36.5" r="2.5" fill="#D9D9D9"/>
+											<circle cx="2.5" cy="53.5" r="2.5" fill="#D9D9D9"/>
+											<circle cx="23.5" cy="53.5" r="2.5" fill="#D9D9D9"/>
+											<circle cx="44.5" cy="53.5" r="2.5" fill="#D9D9D9"/>
+											<circle cx="65.5" cy="53.5" r="2.5" fill="#D9D9D9"/>
+											<circle cx="86.5" cy="53.5" r="2.5" fill="#D9D9D9"/>
+											</svg>
+
+									<svg class="t-svg" width="50" height="50" viewBox="0 0 192 169" fill="none" xmlns="http://www.w3.org/2000/svg">
+										<path d="M61.5393 0.840397L191.627 0.840258L101.714 168.846L-4.87743e-05 113.076L61.5393 0.840397Z" fill="#2696FD" fill-opacity="0.22"/>
+									</svg>
+										
+									</div>
+									<div class="login-media-2">
+										<!-- <img src="../assets/images/login-dark.png" alt=""> -->
+									</div>
+									<div class="d-flex align-items-center justify-content-between text-white pb-3 px-2">
+										<!-- <span><a href="javascript:void(0);" class="text-white d-xl-block d-none">Privacy policy and Terms of use</a></span> -->
+										<span class="text-center">Copyright © 2025  plateauigr. All rights reserved.</span>
+										<!-- <span><a href="javascript:void(0);" class="text-white d-xl-block d-none"> Privacy policy</a></span> -->
+									</div>
+								</div>
+							</div>							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+    <!--**********************************
+        Scripts
+    ***********************************-->
+    <!-- Required vendors -->
+    <script src="../assets/vendor/global/global.min.js"></script>
+    <script src="../assets/js/agent-login.js"></script>
+
+   
+	
+	
+</body>
+</html>

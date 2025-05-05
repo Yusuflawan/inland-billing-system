@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Payment System">
+  <meta name="format-detection" content="telephone=no">
+  <!-- PAGE TITLE HERE -->
+  <title>Demand Notice</title>
+  <!-- FAVICONS ICON -->
+  <link rel="shortcut icon" type="image/png" href="../assets/images/favicon.JPG">
+  <link href="../assets/vendor/wow-master/css/libs/animate.css" rel="stylesheet">
+  <link href="../assets/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/vendor/bootstrap-select-country/css/bootstrap-select-country.min.css">
+  <link rel="stylesheet" href="../assets/vendor/jquery-nice-select/css/nice-select.css">
+  <!-- Datatable -->
+  <link href="../assets/vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
+  <link href="./assets/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
+  <!--swiper-slider-->
+  <link rel="stylesheet" href="../assets/vendor/swiper/css/swiper-bundle.min.css">
+  <link href="../assets/vendor/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+  <!-- Style css -->
+	<link href="../assets/vendor/jquery-nice-select/css/nice-select.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
+  <link href="../assets/css/style.css" rel="stylesheet">
+
+</head>
+
+<body class="dark-mode">
+  <div id="preloader">
+    <div class="loader"></div>
+  </div>
+
+  <div id="main-wrapper" class="wallet-open active show">
+
+    <div id="theFullNav">
+      <!-- COMING FROM NAV.JS -->
+    </div>
+
+
+    <div class="deznav">
+      <div class="deznav-scroll">
+        <ul class="metismenu sidebarMenuuu" id="menu">
+          <!-- COMING FROM NAV.JS -->
+        </ul>
+      </div>
+    </div>
+
+   
+
+
+    <div class="content-body">
+      <div class="container-fluid">
+          <!-- row -->
+          <div class="col-12">
+
+
+            <div class="row">
+              <div class="row g-3">
+                <div class="col-md-6 col-xl-3">
+                  <div class="card dz-wallet overflow-hidden shadow-sm h-100">
+                  <div class="card-body d-flex flex-column justify-content-center text-center">
+                    <span class="fs-6 text-muted">Total Demand Notices Generated</span>
+                    <h2 class="fw-bold mb-0 mt-2" style="color: #333;">567</h2>
+                  </div>
+                  </div>
+                </div>
+
+                <div class="col-md-6 col-xl-3">
+                  <div class="card dz-wallet overflow-hidden shadow-sm h-100">
+                  <div class="card-body d-flex flex-column justify-content-center text-center">
+                    <span class="fs-6 text-muted">Paid Demand Notices</span>
+                    <h2 class="fw-bold mb-0 mt-2" style="color: #333;">567</h2>
+                  </div>
+                  </div>
+                </div>
+
+                <div class="col-md-6 col-xl-3">
+                  <div class="card dz-wallet overflow-hidden shadow-sm h-100">
+                  <div class="card-body d-flex flex-column justify-content-center text-center">
+                    <span class="fs-6 text-muted">Unpaid Demand Notices</span>
+                    <h2 class="fw-bold mb-0 mt-2" style="color: #333;">567</h2>
+                  </div>
+                  </div>
+                </div>
+                
+                <div class="col-md-6 col-xl-3">
+                  <div class="card dz-wallet overflow-hidden shadow-sm h-100">
+                  <div class="card-body d-flex flex-column justify-content-center text-center">
+                    <span class="fs-6 text-muted">Total Amount Collected</span>
+                    <h2 class="fw-bold mb-0 mt-2" style="color: #333;">NGN 34,000,000</h2>
+                  </div>
+                  </div>
+                </div>
+                
+                <div class="col-md-6 col-xl-3">
+                  <div class="card dz-wallet overflow-hidden shadow-sm h-100">
+                    <div class="card-body d-flex flex-column justify-content-center text-center">
+                    <span class="fs-6 text-muted">Total Amount Uncollected</span>
+                    <h2 class="fw-bold mb-0 mt-2" style="color: #333;">NGN 12,000,000</h2>
+                    </div>
+                  </div>
+                </div>
+
+            </div>
+
+
+
+
+            <div class="card mt-3">
+                <div class="card-header">
+                    <h4 class="card-title">Agent Collection Table</h4>
+                    <!-- <button class="btn btn-outline-primary">filter</button> -->
+                    <select class="image-select default-select dashboard-select me-2 bg-white" aria-label="Default">
+                      <option selected>This Month</option>
+                      <option value="1">This Week</option>
+                      <option value="2">Today</option>
+                    </select>
+                </div>
+                <div class="card-body pb-0">
+                    <div class="table-responsive">
+                        <table id="example" class="display" style="min-width: 845px">
+                            <thead>
+                                <tr>
+                                  <th>S/N</th>
+                                    <th>Agent</th>
+                                    <th>Total Amount Collected</th>
+                                    <th>Generated Notices</th>
+                                    <th>Paid Notices</th>
+                                    <th>Unpaid Notices</th>
+                                    <th>Period</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                  <td>1</td>
+                                    <td>Jonas Alexander</td>
+                                    <td>$86,500</td>
+                                    <td>30</td>
+                                    <td>23</td>
+                                    <td>12</td>
+                                    <td>2010/07/14</td>
+                                </tr>
+                                <tr>
+                                  <td>2</td>
+                                    <td>Jonas Alexander</td>
+                                    <td>$86,500</td>
+                                    <td>30</td>
+                                    <td>23</td>
+                                    <td>12</td>
+                                    <td>2010/07/14</td>
+                                </tr>
+                                <tr>
+                                  <td>3</td>
+                                    <td>Jonas Alexander</td>
+                                    <td>$86,500</td>
+                                    <td>30</td>
+                                    <td>23</td>
+                                    <td>12</td>
+                                    <td>2010/07/14</td>
+                                </tr>
+                                <tr>
+                                  <td>4</td>
+                                    <td>Jonas Alexander</td>
+                                    <td>$86,500</td>
+                                    <td>30</td>
+                                    <td>23</td>
+                                    <td>12</td>
+                                    <td>2010/07/14</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+      </div>
+    </div>
+
+    <!-- <div class="content-body">
+        <div class="container-fluid pt-0">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="row">
+                                <div class="col-xl-12 wow fadeInUp" data-wow-delay="1.5s">
+                                    <div class="table-responsive  full-data">
+                                        <table class="table-responsive-lg table display mb-4 dataTablesCard  text-black dataTable no-footer" id="example6" style="text-align: center;">
+                                            <thead>
+                                                <tr>
+                                                    <th>
+                                                         S/N
+                                                    </th>
+                                                    <th>Revenue Head</th>
+                                                    <th>Name</th>
+                                                    <th>TIN Number</th>
+                                                    <th>Invoice Number</th>
+                                                    <th class="text-start">Amount Paid</th>
+                                                    <th>Payment Gateway</th>
+                                                    <th>Payment Method</th>
+                                                    <th>Payment Bank</th>
+                                                    <th>Payment Reference Number</th>
+                                                    <th>Receipt Number</th>
+                                                    <th>Payment Date</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td>Application Fee</td>
+                                                    <td>Yusuf Lawan</td>
+                                                    <td>TIN-0001234</td>
+                                                    <td>INV-0001234</td>
+                                                    <td class= "doller">$ 650,036.34 </td>
+                                                    <td>Paystack</td>
+                                                    <td>Visa</td>
+                                                    <td>UBA Bank</td>
+                                                    <td>1234567890</td>
+                                                    <td>1234567890</td>
+                                                    <td class="whitesp-no fs-14 font-w400">June 1, 2020, 08:22 AM</td>
+                                                    <td>
+                                                        <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#viewInvoice">View Invoice</button>
+                                                    </td>
+                                                </tr>
+
+                                                
+
+                                                
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+                </div>
+
+    </div> -->
+
+
+
+            
+    </div>
+
+    <div class="footer" id="footer">
+
+    </div>
+
+  </div>
+
+  
+  <!-- Modal -->
+  <div class="modal fade" id="viewInvoice" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Demand Notice</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="mb-3 d-block">
+                <label  class="form-label d-block mb-2">Invoice Number</label>
+                <input type="text" class="form-control w-100 mb-0">
+            </div>
+            <div class="mb-3 d-block">
+                <label  class="form-label d-block mb-2">Amount</label>
+                <input type="text" class="form-control w-100 mb-0">
+            </div>
+            <label  class="form-label d-block mb-2"> Payment Status</label>
+              <select class="w-100" aria-label="Default select example">
+                <option selected>Paid</option>
+                <option value="1">Unpaid</option>
+                <option value="1">Pending</option>
+              </select>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--**********************************
+        Scripts
+    ***********************************-->
+  <!-- Required vendors -->
+  <script src="../assets/vendor/global/global.min.js"></script>
+  <script src="../assets/vendor/chart.js/Chart.bundle.min.js"></script>
+  <script src="../assets/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+  <!-- Apex Chart -->
+  <script src="../assets/vendor/apexchart/apexchart.js"></script>
+  <!-- Chart piety plugin files -->
+  <script src="../assets/vendor/peity/jquery.peity.min.js"></script>
+  <script src="../assets/vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script>
+  <!--swiper-slider-->
+  <script src="../assets/vendor/swiper/js/swiper-bundle.min.js"></script>
+
+  <!-- Date-picker -->
+  <script src="../assets/vendor/bootstrap-datetimepicker/js/moment.js"></script>
+  <script src="../assets/vendor/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+
+  <!-- Dashboard 1 -->
+  <script src="../assets/js/dashboard/dashboard-1.js"></script>
+  <script src="../assets/vendor/wow-master/dist/wow.min.js"></script>
+  <script src="../assets/vendor/bootstrap-datetimepicker/js/moment.js"></script>
+  <script src="../assets/vendor/bootstrap-select-country/js/bootstrap-select-country.min.js"></script>
+
+  <script src="../assets/js/deznav-2-init.js"></script>
+  <script src="../assets/js/custom.min.js"></script>
+  <script src="../assets/js/demo-2.js"></script>
+  <!-- <script src="../assets/js/styleSwitcher.js"></script> -->
+
+  <!-- Datatable -->
+  <script src="../assets/vendor/datatables/js/jquery.dataTables.min.js"></script>
+  <script src="../assets/js/plugins-init/datatables.init.js"></script>
+
+  <script src="../assets/vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script>
+
+  <!-- <script src="js/styleSwitcher.js"></script> -->
+
+  <script src="../assets/js/nav.js"></script>
+  <script>
+    displayHeaderTitile('Collection Report') 
+  </script>
+
+</body>
+
+</html>

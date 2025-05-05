@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Demand Notice for Payment</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 40px;
+        background-color: #fff;
+        color: #333;
+    }
+    .container {
+        max-width: 800px;
+        margin: auto;
+    }
+    .header {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    .header img {
+        max-width: 100px;
+        margin-bottom: 10px;
+    }
+    .header h1 {
+        margin: 0;
+        font-size: 22px;
+        font-weight: bold;
+    }
+    .header h2 {
+        margin: 5px 0;
+        font-size: 18px;
+        font-weight: bold;
+    }
+    .header h3 {
+        margin: 5px 0;
+        font-size: 16px;
+        font-weight: bold;
+    }
+    .sub-header {
+        text-align: center;
+        margin-top: 30px;
+        margin-bottom: 20px;
+        color: #bbb;
+    }
+    .title {
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+    .details p {
+        margin: 5px 0;
+    }
+    .content {
+        margin-top: 20px;
+    }
+    .content p {
+        margin: 10px 0;
+        line-height: 1.6;
+    }
+    .signature {
+        margin-top: 40px;
+    }
+    .signature img {
+        max-width: 100px;
+        display: block;
+        margin-bottom: 5px;
+    }
+    .signature p {
+        margin: 0;
+        font-weight: bold;
+    }
+    .buttons {
+        margin-top: 40px;
+        text-align: center;
+    }
+    .buttons button {
+        background: none;
+        border: none;
+        color: #bbb;
+        font-size: 16px;
+        margin: 0 10px;
+        cursor: pointer;
+    }
+    .buttons button:hover {
+        color: #333;
+    }
+</style>
+<script>
+function printPage() {
+    window.print();
+}
+
+function downloadPDF() {
+    const element = document.body;
+    html2canvas(element).then(canvas => {
+        const imgData = canvas.toDataURL('image/png');
+        const pdf = new jsPDF('p', 'mm', 'a4');
+        const imgProps = pdf.getImageProperties(imgData);
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+        pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+        pdf.save('DemandNotice.pdf');
+    });
+}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <img src="../assets//images/ministry-logo.JPG" alt="State Logo">
+        <h1>PLATEAU STATE MINISTRY OF COMMERCE AND INDUSTRY</h1>
+        <h2>PLATEAU STATE OF NIGERIA</h2>
+        <h3>REGISTRATION OF ALL BUSINESS PREMISES</h3>
+    </div>
+
+    <div class="sub-header">
+        Generate Demand Notice
+    </div>
+
+    <div class="title">
+        Demand Notice for Payment of Business Premises Permit
+    </div>
+
+    <div class="details">
+        <p><strong>Demand Notice Ref: </strong><span id="demand-notice-ref-number"></span></p>
+        <p>You are hereby given notice to register your business premises thereof on or before</p>
+        <p><strong>Due Date: </strong><span id="due-date"></span></p>
+        <p><strong>Expiry Date: </strong><span id="expiry-date"></span></p>
+        <p><strong>Business Name: </strong><span id="business-name"></span></p>
+        <p><strong>Business Address: </strong><span id="business-address"></span></p>
+    </div>
+
+    <div class="content">
+        <p>Dear Sir, Ma</p>
+
+        <p><strong>DEMAND NOTICE</strong></p>
+
+
+        <p><strong>FOR <span id="revenue-head"></span></strong></p>
+        <!-- <p><strong>FOR THE REGISTRATION AND THE RENEWAL OF REGISTRATION OF BUSINESS PREMISES (RBP)</strong></p> -->
+
+        <p>As required by the Registration of Business Premises Law, 1979, under the 1993 as amendment in the Plateau State consolidated law 2020 to the said Law, your business is registerable under category.</p>
+
+        <p>and the registration/renewal fee is</p>
+
+        <p><strong>Amount Due:</strong><span id="amount"></span></p>
+
+        <p>You are to pay the total tax/levies to the accredited agent/website within 14 days on receipt of the notice of assessment.</p>
+
+        <p><strong>NB:</strong> NO CASH PAYMENT SHOULD BE MADE TO ANY STAFF OF THE MINISTRY, BUT DIRECT TO OUR ACCREDITED AGENT THROUGH THE P. O. S./ONLINE PORTAL.</p>
+    </div>
+
+    <div class="signature">
+        <img src="signature.png" alt="Signature">
+        <p>Signature/Seal:</p>
+        <p><strong>For Registrar</strong></p>
+    </div>
+
+    <div class="buttons">
+        <button onclick="printPage()">Print</button>
+        <button onclick="downloadPDF()">Download PDF</button>
+    </div>
+</div>
+
+<!-- <script>
+    // create a base path for the api
+const basePath = 'http://localhost:8080/billing-system/backend';
+
+// const basePath = 'http://208.115.219.90/~premisre/backend';
+</script> -->
+
+<script src="../assets/js/view-demand-notice.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Payment System">
+  <meta name="format-detection" content="telephone=no">
+  <!-- PAGE TITLE HERE -->
+  <title>Create New User</title>
+  <!-- FAVICONS ICON -->
+  <link rel="shortcut icon" type="image/png" href="../assets/images/favicon.JPG">
+  <link href="../assets/vendor/wow-master/css/libs/animate.css" rel="stylesheet">
+  <link href="../assets/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/vendor/bootstrap-select-country/css/bootstrap-select-country.min.css">
+  <link rel="stylesheet" href="../assets/vendor/jquery-nice-select/css/nice-select.css">
+  <!--swiper-slider-->
+  <link rel="stylesheet" href="../assets/vendor/swiper/css/swiper-bundle.min.css">
+  <link href="../assets/vendor/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+  <!-- Style css -->
+  <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
+  <link href="../assets/css/style.css" rel="stylesheet">
+
+</head>
+
+<body class="dark-mode">
+  <div id="preloader">
+    <div class="loader"></div>
+  </div>
+
+  <div id="main-wrapper" class="wallet-open active show">
+
+    <div id="theFullNav">
+      <!-- COMING FROM NAV.JS -->
+    </div>
+
+
+    <div class="deznav">
+      <div class="deznav-scroll">
+        <ul class="metismenu sidebarMenuuu" id="menu">
+          <!-- COMING FROM NAV.JS -->
+        </ul>
+      </div>
+    </div>
+
+    <div class="content-body">
+
+      <!-- row -->
+        <div class="container-fluid pt-0">
+            <div class="row">
+                <div class="col-xl-12">
+
+                  <!-- MAIN BODY -->
+                  <div class="row">
+                    <div class="col-xl-12">
+                        <div class="page-titles">
+                          <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                              <li class="breadcrumb-item ps-0"><a href="invoice.html#">Agent Management</a></li>
+                              <li class="breadcrumb-item active" aria-current="page">Create New Agent</li>
+                            </ol>
+                          </nav>
+                        </div>
+                    </div>
+                  </div>
+
+                  <div class="card p-4">
+                    <form id="signupForm">
+                      <div class="row">
+                        <div class="col-xl-6">
+                          <div class="mb-3">
+                            <label for="firstName">First Name <span class="text-danger">*</span></label>
+                            <input id="firstName" type="text" class="form-control" required placeholder="Enter Agent First Name">
+                          </div>
+                        </div>
+                        <div class="col-xl-6">
+                          <div class="mb-3">
+                            <label for="lastName">Last Name <span class="text-danger">*</span></label>
+                            <input id="lastName" type="text" class="form-control" required placeholder="Enter Agent Last Name">
+                          </div>
+                        </div>
+                        <div class="mb-3">
+                          <label for="email">Email <span class="text-danger">*</span></label>
+                          <input id="email" type="email" class="form-control" required placeholder="Enter email">
+                      </div>
+                      <div class="mb-3">
+                          <label for="phone">Phone Number <span class="text-danger">*</span></label>
+                          <input id="phone" type="tel" class="form-control" required placeholder="Enter phone number">
+                      </div>
+                      <div class="col-xl-6">
+                        <div class="mb-3">
+                          <label for="states">State <span class="text-danger">*</span></label>
+                          <select name="" id="states" class="form-select">
+                            <option value="">All States</option>
+                          </select>
+                        </div>
+                      </div>
+                      
+                      <div class="col-xl-6">
+                        <div class="mb-3">
+                          <label for="lga">LGA <span class="text-danger">*</span></label>
+                          <select name="" id="lga" class="form-select">
+                            <option value="">All LGA</option>
+                          </select>
+                        </div>
+                      </div>
+                      
+                      <div class="mb-3">
+                        <label for="address">Address <span class="text-danger">*</span></label>
+                        <textarea id="address" class="form-control" required placeholder="Enter address"></textarea>
+                      </div>
+                      <div class="col-xl-6">
+                        <div class="mb-4">
+                          <label for="password">Password <span class="text-danger">*</span></label>
+                          <input id="password" type="password" class="form-control" required placeholder="Enter password">
+                        </div>
+                      </div>
+                      <div class="col-xl-6">
+                        <div class="mb-4">
+                            <label for="confirmPassword">Confirm Password <span class="text-danger">*</span></label>
+                            <input id="confirmPassword" type="password" class="form-control" required placeholder="Enter password again">
+                        </div>
+                      </div>
+                      
+
+                      </div>
+                      
+                      <button type="submit" class="btn btn-success ">Submit</button>
+                        
+                       
+                    </form>
+                  </div>
+            
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer" id="footer">
+
+    </div>
+
+  </div>
+
+  
+
+  <!--**********************************
+        Scripts
+    ***********************************-->
+  <!-- Required vendors -->
+  <script src="../assets/vendor/global/global.min.js"></script>
+  <script src="../assets/vendor/chart.js/Chart.bundle.min.js"></script>
+  <!-- <script src="../assets/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script> -->
+  <!-- Apex Chart -->
+  <!-- <script src="../assets/vendor/apexchart/apexchart.js"></script> -->
+  <!-- Chart piety plugin files -->
+  <script src="../assets/vendor/peity/jquery.peity.min.js"></script>
+  <!-- <script src="../assets/vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script> -->
+  <!--swiper-slider-->
+  <script src="../assets/vendor/swiper/js/swiper-bundle.min.js"></script>
+
+  <!-- Date-picker -->
+  <script src="../assets/vendor/bootstrap-datetimepicker/js/moment.js"></script>
+  <script src="../assets/vendor/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+
+  <!-- Dashboard 1 -->
+  <script src="../assets/js/dashboard/dashboard-1.js"></script>
+  <script src="../assets/vendor/wow-master/dist/wow.min.js"></script>
+  <!-- <script src="../assets/vendor/bootstrap-datetimepicker/js/moment.js"></script> -->
+  <!-- <script src="../assets/vendor/bootstrap-select-country/js/bootstrap-select-country.min.js"></script> -->
+
+  <script src="../assets/js/deznav-2-init.js"></script>
+  <script src="../assets/js/custom.min.js"></script>
+  <script src="../assets/js/demo-2.js"></script>
+  <!-- <script src="js/styleSwitcher.js"></script> -->
+
+  <script src="../assets/js/nav.js"></script>
+  <script src="../assets/js/create-new-agent.js"></script>
+  <script>
+    displayHeaderTitile('Create Agent') 
+  </script>
+
+</body>
+
+</html>
