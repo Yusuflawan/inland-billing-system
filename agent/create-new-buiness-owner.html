@@ -29,6 +29,40 @@
 	<link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
     <link href="../assets/css/style.css" rel="stylesheet">
 
+    <style>
+      #preview-form {
+          display: none;
+          position: fixed; /* Ensures the modal stays in the same position relative to the viewport */
+          top: 50%; /* Center vertically */
+          left: 50%; /* Center horizontally */
+          transform: translate(-50%, -50%); /* Adjust for the modal's own dimensions */
+          width: 50%; /* Adjust width as needed */
+          background-color: #fff;
+          padding: 20px;
+          border-radius: 10px;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Slightly darker shadow for better visibility */
+          z-index: 1000; /* Higher z-index to ensure it appears above other elements */
+          opacity: 0;
+          transition: opacity 0.3s ease, transform 0.3s ease;
+      }
+  
+      /* Optional: Add a backdrop overlay */
+      #modal-backdrop {
+          display: none;
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+          z-index: 999; /* Slightly lower than the modal */
+      }
+  
+      .modal-open #modal-backdrop {
+          display: block; /* Show the backdrop when the modal is open */
+      }
+  </style>
+
 </head>
 <body class="body">
 
@@ -39,7 +73,7 @@
               <div class="d-flex align-items-center justify-content-center mb-4">
                 <div class="d-flex align-items-center justify-content-center mb-4">
                   <a href="index.html">
-                    <img style="width: 8rem; height: 8rem; border-radius: 50%;" src="../assets/images/favicon.JPG" alt="">
+                    <img style="width: 8rem; height: 8rem; border-radius: 50%;" src="../assets/images/ministry-logo.JPG" alt="">
                   </a>
                 </div>
               </div>
@@ -84,18 +118,31 @@
                             <button type="button" class="btn btn-secondary" id="no-tin">Don't have TIN?</button>
                           </div>
                         </form>
+ 
 
-                        <form action="" id="with-tin-form">
+                        <div id="modal-backdrop"></div>
+                        <form id="preview-form" action="" >
                           <div class="mb-3 mx-4">
-                            <label for="tin-email">Email <span class="text-danger">*</span></label>
-                            <input id="tin-email" type="email" class="form-control" required placeholder="Enter email">
+                            <h4>User exists in IGR DB but not in Local DB. <br> Confirm this info to Create Business Owner in Local DB.</h4>
+                            <p id="msg"></p>
                           </div>
                           <div class="mb-3 mx-4">
-                              <label for="phone">Phone Number <span class="text-danger">*</span></label>
-                              <input id="tin-phone" type="tel" class="form-control" required placeholder="Enter phone number">
+                            <label for="preview-busi-name">Busines Name <span class="text-danger">*</span></label>
+                            <input id="preview-busi-name" type="text" class="form-control" required placeholder="Enter business name">
+                          </div>
+                          <div class="mb-3 mx-4">
+                            <label for="preview-email">Email <span class="text-danger">*</span></label>
+                            <input id="preview-email" type="email" class="form-control" required placeholder="Enter email">
+                          </div>
+                          <div class="mb-3 mx-4">
+                              <label for="preview-phone">Phone Number <span class="text-danger">*</span></label>
+                              <input id="preview-phone" type="tel" class="form-control" required placeholder="Enter phone number">
+                          </div>
+                          <div class="mb-3 mx-4">
+                            <button id="preview-btn" type="submit" class="btn btn-primary">Confirm</button>
+                            <button onclick="toggleModal('preview-form', false)" id="close-preview" type="button" class="btn btn-danger" id="no-tin">X</button>
                           </div>
                         </form>
-
                     <!-- Form content here -->
                     <form id="signupForm" style="display: none;">
                       <!-- Step 1: Personal Info -->
@@ -205,11 +252,7 @@
                           <label for="confirmPassword">Confirm Password <span class="text-danger">*</span></label>
                           <input id="confirmPassword" type="password" class="form-control" required placeholder="Enter password again">
                       </div>
-                      <!-- <div class="form-check mb-4 mx-4">
-                          <input required id="role" type="hidden" value="user">
-                          <input class="form-check-input" type="checkbox" id="terms">
-                          <label class="form-check-label" for="terms">I agree to the Terms & Conditions <span class="text-danger">*</span></label>
-                      </div> -->
+                    
                       <div class="d-flex justify-content-between">
                           <button type="button" class="btn btn-secondary mx-4" onclick="prevStep()">Back</button>
                           <button type="button" class="btn btn-primary mx-4" onclick="nextStep()">Next</button>
@@ -221,7 +264,7 @@
                       <p id="reviewMessage" class="mb-3 mx-4">Please review your information before submitting.</p>
                       <div class="d-flex justify-content-between">
                           <button type="button" class="btn btn-secondary mx-4" onclick="prevStep()">Back</button>
-                          <button type="submit" class="btn btn-success mx-4">Submit</button>
+                          <button id="submitBtn1" type="submit" class="btn btn-success mx-4">Submit</button>
                           
 
                       </div>

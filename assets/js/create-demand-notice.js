@@ -1,6 +1,6 @@
 // create a base path for the api
 // const basePath = 'http://localhost:8080/billing-system/backend';
-
+// new-demand-notice-form automatic-filling-form getTinBtn manual-filling-form
 function setTin() {
   const params = new URLSearchParams(window.location.search);
   const tin = params.get("tin");
@@ -10,6 +10,13 @@ function setTin() {
     const tinField = document.getElementById("tin");
     tinField.value = tin;
   }
+}
+
+function displayMsg(message, color) {
+  const messageElement = document.getElementById("msg");
+  messageElement.innerText = message;
+  messageElement.style.color = color;
+  messageElement.style.display = "block";
 }
 
 let userId = 0;
@@ -132,7 +139,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       const option = document.createElement("option");
       option.value = item.id; // Use the appropriate field for the value
       option.textContent = item.revenue_head; // Use the appropriate field for the display text
-
+ 
       // Add a custom data attribute for the amount
       option.setAttribute("data-amount", item.amount);
       option.setAttribute("data-revenueHeadId", item.revenue_head_id);
@@ -246,7 +253,11 @@ lgaSelect.addEventListener("change", async (e) => {
 
 let agentId = localStorage.getItem("agentId");
 
-async function fetchBusinessOwner() {
+const searchBt = document.getElementById("search-button");
+
+searchBt.addEventListener("click", async function () {
+  // e.preventDefault();
+  document.hasFocus
   const tin = document.getElementById("tin").value.trim(); // Get the TIN value
 
   if (!tin) {
@@ -254,6 +265,9 @@ async function fetchBusinessOwner() {
     return;
   }
 
+  searchBt.innerHTML = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Searching...`;
+  searchBt.disabled = true; // Disable the button
+  
   try {
     // Make a GET request to fetch business owner details
     const response = await fetch(`https://plateauigr.com/testBack/tinGeneration/customerValidation.php?input=${tin}`, {
@@ -269,20 +283,12 @@ async function fetchBusinessOwner() {
 
     const result = await response.json();
 
-    console.log(result)
+    // console.log(result)
+    console.log("API Response:", result);
 
-    const data = result.details;
 
-    createBOwnerPayload = {
-      tin : data.tin,
-      email : data.email,
-      phone : data.phone,
-      password : "123"
-    }
-
-    if (result.success === false) {
+    if (result.success == false) {
           alert(result.message + ". Please proceed to the manual filling");
-
       // Activate the "Manual Filling" tab using Bootstrap API
       const triggerTab = document.querySelector("#manual-fill");
       const tab = new bootstrap.Tab(triggerTab);
@@ -290,6 +296,16 @@ async function fetchBusinessOwner() {
 
     }
     else{
+
+      const data = result.details;
+
+      createBOwnerPayload = {
+        tin : data.tin,
+        email : data.email,
+        phone : data.phone,
+        password : "123"
+      }
+
       try {
         // Make a GET request to fetch business owner details
         const response = await fetch(`${basePath}/business-owner/tin/${tin}`, {
@@ -304,29 +320,32 @@ async function fetchBusinessOwner() {
         }
     
         const result = await response.json();
+
+        console.log(result);
         const user = result.data;
     
         if (!user) {
 
-          // await createBusinessOwner(
-          //   manualBusinessName,
-          //   manualEmail,
-          //   manualPhone,
-          //   manualAddress,
-          //   manualIdType,
-          //   manualIdNumber,
-          //   manualBusinessTypeId,
-          //   manualStaffQuota,
-          //   manualCacNumber,
-          //   tin,
-          //   manualPassword,
-          //   sId,
-          //   lgaId,
-          //   manualSector,
-          //   manualWebsite,
-          //   agentId
-          // );
+          document.getElementById("preview-busi-name").value = data.first_name;
+          document.getElementById("preview-phone").value = data.phone;
+          document.getElementById("preview-email").value = data.email;
+
+          const previewBusiName = document.getElementById("preview-busi-name").value.trim();
+          const previewPhone = document.getElementById("preview-phone").value.trim();
+          const previewEmail = document.getElementById("preview-email").value.trim();
           
+          toggleModal("preview-form", true); // Show modal
+
+          if (previewBusiName === "" || previewPhone === "" || previewEmail === "") {
+            displayMsg("Please fill in all required fields.", "red");
+            // alert("Please fill in all required fields.");
+            // return;
+          }
+          
+          if (previewBusiName && previewPhone && previewEmail) {
+              submitPreview(previewBusiName, previewEmail, previewPhone, data.tin, agentId);
+          }
+
         }
     
         // Populate the input fields with the fetched data
@@ -354,9 +373,19 @@ async function fetchBusinessOwner() {
     console.error("Error fetching business owner details:", error);
     // alert("An error occurred while fetching business owner details.");
   }
+  finally {
+    searchBt.innerHTML = "Search";
+    searchBt.disabled = false; // Enable the button
+  }
+
+});
+
+
+// async function fetchBusinessOwner() {
+ 
 
  
-}
+// }
 
 document.getElementById("automatic-filling-form").addEventListener("submit", async function (event) {
   // console.log("Form submission prevented"); // Debugging log
@@ -378,6 +407,10 @@ document.getElementById("automatic-filling-form").addEventListener("submit", asy
   data.revenueHeadId = selectedOption.getAttribute("data-revenueHeadId");
 
   console.log("Form data to be submitted:", data);
+
+  const creatBt = document.getElementById("createBtn");
+  creatBt.innerHTML = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Creating...`;
+  creatBt.disabled = true; // Disable the button
 
   const payload = {
     merchantId: "2011LASU01",
@@ -412,8 +445,9 @@ document.getElementById("automatic-filling-form").addEventListener("submit", asy
       const demandNoticeNumber = result.invoice_number;
       const businessownerId = data.userId;
       const revenueHeadId = data.revenueHead;
+      const amount = result.price[0];
 
-      await createDemandNotice(businessownerId, agentId, revenueHeadId, demandNoticeNumber);
+      await createDemandNotice(businessownerId, agentId, revenueHeadId, demandNoticeNumber, amount);
       console.log(businessownerId, agentId, revenueHeadId, demandNoticeNumber);
       // alert("Demand notice created successfully!");
       // console.log("Demand notice created on IBS successfully!");
@@ -425,14 +459,19 @@ document.getElementById("automatic-filling-form").addEventListener("submit", asy
     console.error("Error creating demand notice:", error);
     alert("An error occurred while creating the demand notice.");
   }
+  finally{
+    creatBt.innerHTML = "Submit";
+    creatBt.disabled = false; // Enable the button
+  }
 });
 
-async function createDemandNotice(businessownerId, agentId, revenueHeadId, demandNoticeNumber) {
+async function createDemandNotice(businessownerId, agentId, revenueHeadId, demandNoticeNumber, amount) {
   const payload = {
     business_owner_id: businessownerId,
     revenue_head_item: revenueHeadId,
     demand_notice_number: demandNoticeNumber,
     agent_id: agentId,
+    amount: amount,
   };
 
   try {
@@ -486,6 +525,10 @@ document.getElementById("manual-filling-form").addEventListener("submit", async 
   const manualStaffQuota = document.getElementById("manual-staff-quota").value.trim();
   const manualCacNumber = document.getElementById("manual-cac-number").value.trim();
   const manualPassword = document.getElementById("manual-password").value.trim();
+
+  const getTinBtn = document.getElementById("getTinBtn");
+  getTinBtn.innerHTML = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Creating...`;
+  getTinBtn.disabled = true; // Disable the button
 
   try {
     const stateName = await getStateName(sId);
@@ -560,6 +603,10 @@ document.getElementById("manual-filling-form").addEventListener("submit", async 
   } catch (error) {
     console.error("An error occurred:", error);
     // displayMessage("An unexpected error occurred. Please try again later.", "red");
+  }
+  finally {
+    getTinBtn.innerHTML = "Get TIN";
+    getTinBtn.disabled = false; // Enable the button
   }
 });
 
@@ -682,6 +729,10 @@ document.getElementById("new-demand-notice-form").addEventListener("submit", asy
 
   let bOwnerId;
 
+  const manualSubmitBtn = document.getElementById("manualsubmitBtn");
+  manualSubmitBtn.innerHTML = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Creating...`;
+  manualSubmitBtn.disabled = true; // Disable the button
+
   try {
     // Make a GET request to fetch business owner details
     const response = await fetch(`${basePath}/business-owner/tin/${tinNum}`, {
@@ -710,6 +761,11 @@ document.getElementById("new-demand-notice-form").addEventListener("submit", asy
     console.error("Error fetching business owner details:", error);
     // alert("An error occurred while fetching business owner details.");
   }
+  finally{
+    manualSubmitBtn.innerHTML = "Create";
+    manualSubmitBtn.disabled = false; // Enable the button
+  }
+  
   const seleOption = document.querySelector("#new-revenue-head option:checked");
   revenueHeadId = seleOption.getAttribute("data-revHeadId");
 //   const revenueHeadId = document.getElementById("new-revenue-head").getAttribute("data-revHeadId");
@@ -757,7 +813,7 @@ document.getElementById("new-demand-notice-form").addEventListener("submit", asy
       const demandNoticeNumber = result.invoice_number;
     //   const businessownerId = data.userId;
 
-      await createDemandNotice(bOwnerId, agentId, revenueHeadId, demandNoticeNumber);
+      await createDemandNotice(bOwnerId, agentId, revenueHeadId, demandNoticeNumber, revAmount);
     //   console.log(businessownerId, agentId, revenueHeadId, demandNoticeNumber);
       alert("Demand notice created successfully!");
       console.log("Demand notice created on IBS successfully!");
@@ -769,6 +825,7 @@ document.getElementById("new-demand-notice-form").addEventListener("submit", asy
     console.error("Error creating demand notice:", error);
     alert("An error occurred while creating the demand notice.");
   }
+  
 });
 
 
@@ -798,3 +855,77 @@ async function checkRenewal(business_owner_id, revenue_head_id){
   // alert("An error occurred while loading revenue head items.");
 }
 }
+
+
+
+function toggleModal(modalId, isVisible) {
+  const modal = document.getElementById(modalId);
+  const body = document.body;
+
+  if (isVisible) {
+      modal.style.display = "block";
+      modal.style.opacity = "1";
+      modal.style.transition = "opacity 0.5s ease-in-out";
+      body.classList.add("modal-open"); // Add the class to change body color
+  } else {
+      modal.style.display = "none";
+      modal.style.opacity = "0";
+      modal.style.transition = "opacity 0.5s ease-in-out";
+      body.classList.remove("modal-open"); // Remove the class to revert body color
+  }
+}
+
+
+document.getElementById("preview-form").addEventListener("submit", async function (e) {
+  e.preventDefault();
+
+  const previewBusiName = document.getElementById("preview-busi-name").value;
+  const previewEmail = document.getElementById("preview-email").value;
+  const previewPhone = document.getElementById("preview-phone").value;
+
+  const tin = document.getElementById("tin").value; // Set the TIN value in the input field
+  console.log(previewBusiName, previewEmail, previewPhone, tin, agentId);
+  
+  await createBusinessOwner1(previewBusiName, previewEmail, previewPhone, tin, agentId);
+});
+
+
+async function createBusinessOwner1(firstName, email, phone, tin, agentId) {
+  try {
+      const response = await fetch(`${basePath}/auth/auto/register`, {
+          method: "POST",
+          headers: {
+              "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+              business_name: firstName, // Assuming `first_name` is used as the business name
+              email: email,
+              phone: phone,
+              tin: tin,
+              agent_id: agentId,
+          }),
+      });
+
+      if (response.ok) {
+          const result = await response.json();
+          alert(result.message + ". Please proceed to creating demand notice");
+          // close the modal
+          toggleModal("preview-form", false); // Hide the modal
+          
+          document.getElementById("tin").value = tin; // Set the TIN value in the input field
+          // console.log(tin); // Log the TIN for debugging
+          document.getElementById("search-button").click(); // Trigger the search button click event
+
+          // window.location.reload(); // Reload the page after successful registration
+          // alert("User created successfully in local DB.");    
+          console.log(result); // Log the result for debugging
+          // return; // Return true if the user is created successfully
+      } else {
+          alert(result.message)
+          throw new Error("Failed to create user in local DB");
+      }
+  } catch (error) {
+      console.error("Error creating user in local DB:", error);
+  }
+}
+

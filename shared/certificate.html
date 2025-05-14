@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Certificate of Registration</title>
+  <link rel="stylesheet" href="../assets/css/certificate.css">
+</head>
+<body>
+  <div class="button-bar">
+    <button onclick="window.print()">🖨️ Print Certificate</button>
+    <button onclick="downloadHTML()">⬇️ Download Certificate</button>
+  </div>
+
+  <div class="certificate" id="certificate">
+    <img src="../assets/images/ministry-logo.JPG" alt="Plateau State Logo" class="logo" />
+
+    <h3>PLATEAU STATE NIGERIA</h3>
+    <h4>REGISTRATION OF BUSINESS PLACES EDICT NO.5 1979</h4>
+    <h4>CERTIFICATE OF REGISTRATION OF BUSINESS PREMISES</h4>
+
+    <p class="certify">I hereby certify that</p>
+
+    <h1 id="business-name" class="name">Marceline Anderson</h1>
+
+    <p class="description">
+      in <span id="lga"></span> Local Government Authority of the Plateau State and carrying<br>
+      business as has been duly registered under section 12 of the Plateau State Registration of<br>
+      Business Premises Edict, 1979 (Amendment) Edict 1987.
+    </p>
+
+    <div class="footer">
+      <div class="seal"></div>
+      <p class="sign">Registrar of Business Premises</p>
+    </div>
+  </div>
+
+  <script>
+    function downloadHTML() {
+      const element = document.createElement('a');
+      const file = new Blob([document.documentElement.outerHTML], {type: 'text/html'});
+      element.href = URL.createObjectURL(file);
+      element.download = "certificate.html";
+      document.body.appendChild(element);
+      element.click();
+    }
+  </script>
+
+  <script src="../assets/js/certificate.js"></script>
+</body>
+</html>

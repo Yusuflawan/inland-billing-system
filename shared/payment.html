@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <iframe></iframe>
+
+    <script>
+        // Get the query parameter from the URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const noticeNumber = urlParams.get('invnumber');
+
+        if (noticeNumber) {
+            // Set the iframe src to the payment URL
+            const iframeSrc = `https://plateauigr.com/payment.html?invnumber=${noticeNumber}`;
+            document.querySelector('iframe').src = iframeSrc;
+            console.log('Iframe Source:', iframeSrc); // Debugging log
+        } else {
+            console.error('No invoice number found in the URL.');
+            alert('Invalid or missing invoice number.');
+        }
+
+        // Optional: Handle iframe load event
+        document.querySelector('iframe').addEventListener('load', function() {
+            console.log('Iframe loaded successfully!');
+        });
+    </script>
+</body>
+</html>

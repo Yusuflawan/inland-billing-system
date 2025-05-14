@@ -9,16 +9,16 @@ class DemandNotice
         $this->db = $db;
     }
 
-    public function createDemandNotice($businessOwnerId, $agentId, $revenueHeadItem, $demandNoticeNumber)
+    public function createDemandNotice($businessOwnerId, $agentId, $revenueHeadItem, $demandNoticeNumber, $amount)
     {
         try {
-            $query = "INSERT INTO demand_notices (business_owner_id, agent_id, revenue_head_item, demand_notice_number) VALUES (:business_owner_id, :agent_id, :revenue_head_item, :demand_notice_number)";
+            $query = "INSERT INTO demand_notices (business_owner_id, agent_id, revenue_head_item, demand_notice_number, amount) VALUES (:business_owner_id, :agent_id, :revenue_head_item, :demand_notice_number, :amount)";
             $stmt = $this->db->prepare($query);
             $stmt->bindParam(':business_owner_id', $businessOwnerId, PDO::PARAM_INT);
             $stmt->bindParam(':agent_id', $agentId, PDO::PARAM_INT);
             $stmt->bindParam(':revenue_head_item', $revenueHeadItem, PDO::PARAM_INT);
             $stmt->bindParam(':demand_notice_number', $demandNoticeNumber, PDO::PARAM_INT);
-            // $stmt->bindParam(':status', $status, PDO::PARAM_STR);
+            $stmt->bindParam(':amount', $amount, PDO::PARAM_STR);
 
             if ($stmt->execute()) {
                 return ["status" => "success", "message" => "Demand notice created successfully"];
@@ -35,25 +35,16 @@ class DemandNotice
     {
         try {
             $query = "SELECT 
-                demand_notices.*, 
-                business_owners.business_name, 
-                business_owners.address, 
-                revenue_head_items.revenue_head,
-                -- Dynamically select either amount or renewal_amount
-                CASE 
-                    WHEN revenue_head_items.revenue_head_id = demand_notices.revenue_head_item THEN revenue_head_items.amount
-                    WHEN revenue_head_items.revenue_head_id_renewal = demand_notices.revenue_head_item THEN revenue_head_items.renewal_amount
-                    ELSE NULL
-                END AS amount
-            FROM demand_notices
-            JOIN business_owners ON business_owners.id = demand_notices.business_owner_id
-            JOIN revenue_head_items 
-                ON revenue_head_items.revenue_head_id = demand_notices.revenue_head_item
-                OR revenue_head_items.revenue_head_id_renewal = demand_notices.revenue_head_item
-            WHERE demand_notices.demand_notice_number = :demand_notice_number
-
-            ";
-
+    demand_notices.*, 
+    business_owners.business_name, 
+    business_owners.address, 
+    COALESCE(rhi1.revenue_head, rhi2.revenue_head) AS revenue_head,
+    demand_notices.amount
+    FROM demand_notices
+    JOIN business_owners ON business_owners.id = demand_notices.business_owner_id
+    LEFT JOIN revenue_head_items rhi1 ON rhi1.revenue_head_id = demand_notices.revenue_head_item
+    LEFT JOIN revenue_head_items rhi2 ON rhi2.revenue_head_id_renewal = demand_notices.revenue_head_item
+    WHERE demand_notices.demand_notice_number = :demand_notice_number";
 
             $stmt = $this->db->prepare($query);
             $stmt->bindParam(':demand_notice_number', $demandNoticeNumber, PDO::PARAM_STR);
@@ -75,29 +66,28 @@ class DemandNotice
     {
         try {
             $query = "SELECT 
-                    dn.demand_notice_number,
-                    dn.status,
-                    dn.created_at,
-                    dn.agent_id,
-                    bo.tin,
-                    bo.business_name,
-                    rhi.revenue_head,
-                    CASE 
-                        WHEN dn.revenue_head_item = rhi.revenue_head_id THEN rhi.amount
-                        WHEN dn.revenue_head_item = rhi.revenue_head_id_renewal THEN rhi.renewal_amount
-                        ELSE NULL
-                    END AS amount,
-                    a.first_name AS agent_first_name,
-                    a.last_name AS agent_last_name
-                FROM demand_notices dn
-                INNER JOIN business_owners bo 
-                    ON dn.business_owner_id = bo.id
-                INNER JOIN revenue_head_items rhi 
-                    ON dn.revenue_head_item = rhi.revenue_head_id 
-                    OR dn.revenue_head_item = rhi.revenue_head_id_renewal
-                INNER JOIN agents a 
-                    ON dn.agent_id = a.id;
-                        ";
+    dn.demand_notice_number,
+    dn.status,
+    dn.created_at,
+    dn.agent_id,
+    bo.tin,
+    bo.business_name,
+    COALESCE(rhi1.revenue_head, rhi2.revenue_head) AS revenue_head,
+    dn.amount,
+    a.first_name AS agent_first_name,
+    a.last_name AS agent_last_name
+FROM demand_notices dn
+INNER JOIN business_owners bo 
+    ON dn.business_owner_id = bo.id
+LEFT JOIN revenue_head_items rhi1 
+    ON dn.revenue_head_item = rhi1.revenue_head_id
+LEFT JOIN revenue_head_items rhi2 
+    ON dn.revenue_head_item = rhi2.revenue_head_id_renewal
+INNER JOIN agents a 
+    ON dn.agent_id = a.id
+ORDER BY 
+    CASE WHEN dn.status = 'unpaid' THEN 0 ELSE 1 END,
+    dn.created_at DESC;";
 
             $stmt = $this->db->prepare($query);
             $stmt->execute();
@@ -118,25 +108,25 @@ class DemandNotice
     {
         try {
             $query = "SELECT 
-                dn.demand_notice_number,
-                dn.status,
-                dn.created_at,
-                bo.tin,
-                bo.business_name,
-                rhi.revenue_head,
-                CASE 
-                    WHEN dn.revenue_head_item = rhi.revenue_head_id THEN rhi.amount
-                    WHEN dn.revenue_head_item = rhi.revenue_head_id_renewal THEN rhi.renewal_amount
-                    ELSE NULL
-                    END AS amount
-                FROM demand_notices dn
-                INNER JOIN business_owners bo 
-                    ON dn.business_owner_id = bo.id
-                INNER JOIN revenue_head_items rhi 
-                    ON dn.revenue_head_item = rhi.revenue_head_id 
-                    OR dn.revenue_head_item = rhi.revenue_head_id_renewal
-                WHERE dn.agent_id = :id;
-                ";
+    dn.business_owner_id,
+    dn.demand_notice_number,
+    dn.status,
+    dn.created_at,
+    bo.tin,
+    bo.business_name,
+    COALESCE(rhi1.revenue_head, rhi2.revenue_head) AS revenue_head,
+    dn.amount
+FROM demand_notices dn
+INNER JOIN business_owners bo 
+    ON dn.business_owner_id = bo.id
+LEFT JOIN revenue_head_items rhi1 
+    ON dn.revenue_head_item = rhi1.revenue_head_id
+LEFT JOIN revenue_head_items rhi2 
+    ON dn.revenue_head_item = rhi2.revenue_head_id_renewal
+WHERE dn.agent_id = :id
+ORDER BY 
+    CASE WHEN dn.status = 'unpaid' THEN 0 ELSE 1 END,
+    dn.created_at DESC;";
 
             $stmt = $this->db->prepare($query);
             $stmt->bindParam(':id', $id, PDO::PARAM_INT);
@@ -157,19 +147,21 @@ class DemandNotice
     {
         try {
             $query = "SELECT 
-                        demand_notices.demand_notice_number,
-                        demand_notices.status,
-                        demand_notices.created_at,
-                        demand_notices.agent_id,
-                        -- users.tin,
-                        -- users.businessName,
-                        revenue_head_items.revenue_head,
-                        revenue_head_items.amount
-                    FROM demand_notices
-                        INNER JOIN business_owners ON demand_notices.business_owner_id = business_owners.id
-                        INNER JOIN revenue_head_items ON demand_notices.revenue_head_item = revenue_head_items.revenue_head_id
-                    WHERE demand_notices.business_owner_id = :id
-                        ";
+    demand_notices.business_owner_id,
+    demand_notices.demand_notice_number,
+    demand_notices.status,
+    demand_notices.created_at,
+    demand_notices.agent_id,
+    demand_notices.amount,
+    COALESCE(rhi1.revenue_head, rhi2.revenue_head) AS revenue_head
+FROM demand_notices
+INNER JOIN business_owners ON demand_notices.business_owner_id = business_owners.id
+LEFT JOIN revenue_head_items rhi1 ON demand_notices.revenue_head_item = rhi1.revenue_head_id
+LEFT JOIN revenue_head_items rhi2 ON demand_notices.revenue_head_item = rhi2.revenue_head_id_renewal
+WHERE demand_notices.business_owner_id = :id
+ORDER BY 
+    CASE WHEN demand_notices.status = 'unpaid' THEN 0 ELSE 1 END,
+    demand_notices.created_at DESC;";
 
             $stmt = $this->db->prepare($query);
             $stmt->bindParam(':id', $id, PDO::PARAM_INT);
@@ -360,9 +352,9 @@ class DemandNotice
 
     public function getTotalAmountPaid()
     {
-        $query = "SELECT COALESCE(SUM(revenue_head_items.amount), 0) AS total_amount
+        $query = "SELECT COALESCE(SUM(demand_notices.amount), 0) AS total_amount
                   FROM demand_notices
-                  JOIN revenue_head_items ON demand_notices.revenue_head_item = revenue_head_items.revenue_head_id
+                --   JOIN revenue_head_items ON demand_notices.revenue_head_item = revenue_head_items.revenue_head_id
                   WHERE demand_notices.status = :status";
 
         $stmt = $this->db->prepare($query);
@@ -381,9 +373,9 @@ class DemandNotice
 
     public function getTotalAmountUnpaid()
     {
-        $query = "SELECT COALESCE(SUM(revenue_head_items.amount), 0) AS total_amount
+        $query = "SELECT COALESCE(SUM(demand_notices.amount), 0) AS total_amount
         FROM demand_notices
-        JOIN revenue_head_items ON demand_notices.revenue_head_item = revenue_head_items.revenue_head_id
+        -- JOIN revenue_head_items ON demand_notices.revenue_head_item = revenue_head_items.revenue_head_id
         WHERE demand_notices.status = :status";
 
         $stmt = $this->db->prepare($query);
@@ -403,9 +395,9 @@ class DemandNotice
 
     public function getTotalAmountPaidByAgent($id)
     {
-        $query = "SELECT COALESCE(SUM(revenue_head_items.amount), 0) AS total_amount
+        $query = "SELECT COALESCE(SUM(demand_notices.amount), 0) AS total_amount
                   FROM demand_notices
-                  JOIN revenue_head_items ON demand_notices.revenue_head_item = revenue_head_items.revenue_head_id
+                --   JOIN revenue_head_items ON demand_notices.revenue_head_item = revenue_head_items.revenue_head_id
                   WHERE demand_notices.agent_id = :id 
                   AND demand_notices.status = :status";
 
@@ -425,9 +417,9 @@ class DemandNotice
 
     public function getTotalAmountUnpaidByAgent($id)
     {
-        $query = "SELECT COALESCE(SUM(revenue_head_items.amount), 0) AS total_amount
+        $query = "SELECT COALESCE(SUM(demand_notices.amount), 0) AS total_amount
                   FROM demand_notices
-                  JOIN revenue_head_items ON demand_notices.revenue_head_item = revenue_head_items.revenue_head_id
+                --   JOIN revenue_head_items ON demand_notices.revenue_head_item = revenue_head_items.revenue_head_id
                   WHERE demand_notices.agent_id = :id 
                   AND demand_notices.status = :status";
 
@@ -448,9 +440,9 @@ class DemandNotice
 
     public function getTotalAmountPaidByBusinessOwner($id)
     {
-        $query = "SELECT COALESCE(SUM(revenue_head_items.amount), 0) AS total_amount
+        $query = "SELECT COALESCE(SUM(demand_notices.amount), 0) AS total_amount
                   FROM demand_notices
-                  JOIN revenue_head_items ON demand_notices.revenue_head_item = revenue_head_items.revenue_head_id
+                --   JOIN revenue_head_items ON demand_notices.revenue_head_item = revenue_head_items.revenue_head_id
                   WHERE demand_notices.business_owner_id = :id 
                   AND demand_notices.status = :status";
 
@@ -470,9 +462,9 @@ class DemandNotice
 
     public function getTotalAmountUnpaidByBusinessOwner($id)
     {
-        $query = "SELECT COALESCE(SUM(revenue_head_items.amount), 0) AS total_amount
+        $query = "SELECT COALESCE(SUM(demand_notices.amount), 0) AS total_amount
                   FROM demand_notices
-                  JOIN revenue_head_items ON demand_notices.revenue_head_item = revenue_head_items.revenue_head_id
+                --   JOIN revenue_head_items ON demand_notices.revenue_head_item = revenue_head_items.revenue_head_id
                   WHERE demand_notices.business_owner_id = :id 
                   AND demand_notices.status = :status";
 
@@ -565,5 +557,26 @@ class DemandNotice
         }
     }
 }
+
+
+public function updateDemandNoticeStatus($demandNoticeNumber)
+    {
+        try {
+            $query = "UPDATE demand_notices SET status = 'paid' WHERE demand_notice_number = :demand_notice_number";
+            $stmt = $this->db->prepare($query);
+            $stmt->bindParam(':demand_notice_number', $demandNoticeNumber, PDO::PARAM_STR);
+            if ($stmt->execute()) {
+                return ["status" => "success", "message" => "Demand notice status updated successfully"];
+            } else {
+                return ["status" => "error", "message" => "Failed to update demand notice status"];
+            }
+            
+        } catch (Exception $e) {
+            return ["status" => "error", "message" => $e->getMessage()];
+        }
+    }
+
+
+
 
 }

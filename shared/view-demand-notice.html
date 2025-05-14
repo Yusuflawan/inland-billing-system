@@ -10,10 +10,13 @@
         margin: 40px;
         background-color: #fff;
         color: #333;
+        padding-top: 3rem;
     }
     .container {
         max-width: 800px;
         margin: auto;
+        padding-left: 5rem;
+        padding: 5rem;
     }
     .header {
         text-align: center;
@@ -91,18 +94,60 @@ function printPage() {
     window.print();
 }
 
+// function downloadPDF() {
+//     const element = document.body;
+//     html2canvas(element).then(canvas => {
+//         const imgData = canvas.toDataURL('image/png');
+//         const pdf = new jsPDF('p', 'mm', 'a4');
+//         const imgProps = pdf.getImageProperties(imgData);
+//         const pdfWidth = pdf.internal.pageSize.getWidth();
+//         const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+//         pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+//         pdf.save('DemandNotice.pdf');
+//     });
+// }
+
+// function downloadPDF() {
+//     const element = document.body;
+//     html2canvas(element).then(canvas => {
+//         const imgData = canvas.toDataURL('image/png');
+//         const pdf = new window.jspdf.jsPDF('p', 'mm', 'a4'); // Use window.jspdf.jsPDF
+//         const imgProps = pdf.getImageProperties(imgData);
+//         const pdfWidth = pdf.internal.pageSize.getWidth();
+//         const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+//         pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+//         pdf.save('DemandNotice.pdf');
+//     });
+// }
+
 function downloadPDF() {
-    const element = document.body;
+    const element = document.querySelector('.container'); // Target the specific container
     html2canvas(element).then(canvas => {
         const imgData = canvas.toDataURL('image/png');
-        const pdf = new jsPDF('p', 'mm', 'a4');
-        const imgProps = pdf.getImageProperties(imgData);
+        const pdf = new window.jspdf.jsPDF('p', 'mm', 'a4'); // Use window.jspdf.jsPDF
+
+        // Get the dimensions of the PDF page
         const pdfWidth = pdf.internal.pageSize.getWidth();
-        const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-        pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+        const pdfHeight = pdf.internal.pageSize.getHeight();
+
+        // Get the dimensions of the canvas image
+        const imgProps = pdf.getImageProperties(imgData);
+        const imgWidth = pdfWidth; // Scale the image to fit the PDF width
+        const imgHeight = (imgProps.height * imgWidth) / imgProps.width;
+
+        // Calculate the vertical and horizontal offsets to center the content
+        const xOffset = (pdfWidth - imgWidth) / 2; // Center horizontally
+        const yOffset = (pdfHeight - imgHeight) / 2; // Center vertically (optional)
+
+        // Add the image to the PDF
+        pdf.addImage(imgData, 'PNG', xOffset, 0, imgWidth, imgHeight); // Adjust xOffset for horizontal centering
         pdf.save('DemandNotice.pdf');
+    }).catch(error => {
+        console.error("Error generating PDF:", error);
+        alert("An error occurred while generating the PDF. Please try again.");
     });
 }
+
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -110,7 +155,7 @@ function downloadPDF() {
 <body>
 <div class="container">
     <div class="header">
-        <img src="../assets//images/ministry-logo.JPG" alt="State Logo">
+        <img src="../assets/images/ministry-logo.JPG" alt="State Logo">
         <h1>PLATEAU STATE MINISTRY OF COMMERCE AND INDUSTRY</h1>
         <h2>PLATEAU STATE OF NIGERIA</h2>
         <h3>REGISTRATION OF ALL BUSINESS PREMISES</h3>
@@ -161,16 +206,9 @@ function downloadPDF() {
 
     <div class="buttons">
         <button onclick="printPage()">Print</button>
-        <button onclick="downloadPDF()">Download PDF</button>
+        <button type="button" onclick="downloadPDF()">Download PDF</button>
     </div>
 </div>
-
-<!-- <script>
-    // create a base path for the api
-const basePath = 'http://localhost:8080/billing-system/backend';
-
-// const basePath = 'http://208.115.219.90/~premisre/backend';
-</script> -->
 
 <script src="../assets/js/view-demand-notice.js"></script>
 

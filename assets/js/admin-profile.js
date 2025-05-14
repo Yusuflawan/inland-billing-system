@@ -161,6 +161,13 @@ document.getElementById("edit-profile-form").addEventListener("submit", async (e
     lga: document.querySelector(".profile-form #edit-lga").value,
   };
   console.log(formData);
+
+  const updateButton = document.getElementById("updateBtn");
+  // Add loader and disable the button
+  updateButton.disabled = true; // Disable the button
+  const originalText = updateButton.innerHTML; // Save the original button text
+  updateButton.innerHTML = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Updating...`;
+
   try {
 
     const response = await fetch(`${basePath}/admin/${adminId}/update-profile`, {
@@ -190,6 +197,11 @@ document.getElementById("edit-profile-form").addEventListener("submit", async (e
 
   } catch (error) {
     console.error("Error editing business owner:", error);
+  }
+  finally {
+    // Revert button text and re-enable it
+    updateButton.innerHTML = originalText;
+    updateButton.disabled = false; // Re-enable the button
   }
   
 });

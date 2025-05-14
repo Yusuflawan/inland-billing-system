@@ -5,7 +5,7 @@ header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
 
-// Handle preflight (OPTIONS) request
+// Handle preflight (OPTIONS) request payment
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     http_response_code(200);
     exit();
@@ -63,6 +63,12 @@ $router->get('/business-owner/profile', function(){
     $profileController = new ProfileController();
     return $profileController->getBusinessOwnerProfile();
 });
+
+$router->get('/business-owner/{id}', function($id){
+    $businessOwnerController = new BusinessOwnerController();
+    return $businessOwnerController->getBusinessOwnerById($id);
+});
+
 
 $router->get('/business-owner/tin/{tin}', function($tin){
     $businessOwnerController = new BusinessOwnerController();
@@ -274,6 +280,11 @@ $router->get('/demand-notice/view/{demandNoticeNumber}', function($demandNoticeN
     return $demandNoticeController->getADemandNoticeByNoticeNumber($demandNoticeNumber);
 });
 
+// payment
+$router->put('/demand-notices/{demandNoticeNumber}', function($demandNoticeNumber){
+    $demandNoticeController = new DemandNoticeController();
+    return $demandNoticeController->updateDemandNoticeStatus($demandNoticeNumber);
+});
 
 
 // Amount count
@@ -311,7 +322,6 @@ $router->get('/business-owner/{id}/total-amount/unpaid', function($id){
 
 
 
-
 // State Management
 $router->get('/states', function(){
     $stateController = new StatesController();
@@ -327,6 +337,16 @@ $router->get('/state/lgas/{id}', function($id){
 $router->get('/business-owners/payment-history/{id}', function($id){
     $paymentController = new PaymentController();
     return $paymentController->getBusinessOwnersPaymentHistory($id);
+});
+
+$router->post('/payment', function(){
+    $paymentController = new PaymentController();
+    return $paymentController->setPayment();
+});
+
+$router->post('/payment-history', function(){
+    $paymentController = new PaymentController();
+    return $paymentController->createPaymentHistory();
 });
 
 // Agent payment history

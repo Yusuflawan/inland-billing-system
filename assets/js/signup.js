@@ -153,6 +153,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     const password = document.getElementById("password").value.trim();
     const confirmPassword = document.getElementById("confirmPassword").value.trim();
 
+    const signupBtn = document.getElementById("signupBtn");
+
     // Validate inputs
     if (!businessName || !email || !phone || !address || !idType || !idNumber || !businessTypeId || !staffQuota) {
       displayMessage("Please fill in all required fields.", "red");
@@ -163,6 +165,11 @@ document.addEventListener("DOMContentLoaded", async () => {
       displayMessage("Passwords do not match.", "red");
       return;
     }
+
+    // Add loader and disable the button
+    signupBtn.disabled = true; // Disable the button
+    const originalText = signupBtn.innerHTML; // Save the original button text
+    signupBtn.innerHTML = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Registering...`;
 
     try {
       const stateName = await getStateName(sId);
@@ -217,6 +224,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     } catch (error) {
       console.error("An error occurred:", error);
       displayMessage("An unexpected error occurred. Please try again later.", "red");
+
+    }
+    finally {
+      // Remove loader and re-enable the button
+      signupBtn.disabled = false; // Re-enable the button
+      signupBtn.innerHTML = originalText; // Restore the original button text
     }
   });
 

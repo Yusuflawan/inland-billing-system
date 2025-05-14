@@ -22,6 +22,41 @@
   <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
   <link href="../assets/css/style.css" rel="stylesheet">
 
+  
+  <style>
+    #preview-form {
+        display: none;
+        position: fixed; /* Ensures the modal stays in the same position relative to the viewport */
+        top: 50%; /* Center vertically */
+        left: 50%; /* Center horizontally */
+        transform: translate(-50%, -50%); /* Adjust for the modal's own dimensions */
+        width: 50%; /* Adjust width as needed */
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Slightly darker shadow for better visibility */
+        z-index: 1000; /* Higher z-index to ensure it appears above other elements */
+        opacity: 0;
+        transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    /* Optional: Add a backdrop overlay */
+    #modal-backdrop {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+        z-index: 999; /* Slightly lower than the modal */
+    }
+
+    .modal-open #modal-backdrop {
+        display: block; /* Show the backdrop when the modal is open */
+    }
+</style>
+
 </head>
 
 <body class="dark-mode">
@@ -87,7 +122,7 @@
                                 <label class="form-label">TIN (Tax Identification Number)</label>
                                 <input type="text" id="tin" required placeholder="Enter TIN" class="form-control" />
                               </div>
-                              
+                               
                               <div id="auto-details" class="d-none">
                                 <div class="mb-3">
                                   <label class="form-label">Revenue Head</label>
@@ -121,9 +156,12 @@
                                 </div>                                
                               </div>
                               <button type="submit" id="createBtn" class="btn btn-primary d-none">Submit</button>
-                              <button type="button" id="search-button" class="btn btn-primary" onclick="fetchBusinessOwner()">Search</button>
+                              <button type="button" id="search-button" class="btn btn-primary">Search</button>
                             </form>
                   
+                            
+                        
+
                             <div id="auto-filled-details" class="mt-4 d-none">
                               <h5>Fetched Business Details</h5>
                               <form>
@@ -160,6 +198,30 @@
                           </div>
                         </div>
                   
+                        <div id="modal-backdrop"></div>
+                        <form id="preview-form" action="" >
+                          <div class="mb-3 mx-4">
+                            <h4>User exists in IGR DB but not in Local DB. <br> Confirm this info to Create Business Owner in Local DB.</h4>
+                            <p id="msg"></p>
+                          </div>
+                          <div class="mb-3 mx-4">
+                            <label for="preview-busi-name">Busines Name <span class="text-danger">*</span></label>
+                            <input id="preview-busi-name" type="text" class="form-control" required placeholder="Enter Business Name">
+                          </div>
+                          <div class="mb-3 mx-4">
+                            <label for="preview-email">Email <span class="text-danger">*</span></label>
+                            <input id="preview-email" type="email" class="form-control" required placeholder="Enter email">
+                          </div>
+                          <div class="mb-3 mx-4">
+                              <label for="preview-phone">Phone Number <span class="text-danger">*</span></label>
+                              <input id="preview-phone" type="tel" class="form-control" required placeholder="Enter phone number">
+                          </div>
+                          <div class="mb-3 mx-4">
+                            <button id="preview-btn" type="submit" class="btn btn-primary">Confirm</button>
+                            <button onclick="toggleModal('preview-form', false)" id="close-preview" type="button" class="btn btn-danger">X</button>
+                          </div>
+                        </form>
+
                         <!-- Manual Filling Tab -->
                         <div id="manual-filling" class="tab-pane fade">
                           <!-- <p>Under Maintenance</p> -->
@@ -256,7 +318,7 @@
                                 <label for="password">Password</label>
                                 <input id="manual-password" type="text" class="form-control" placeholder="Enter Password">
                               </div>
-                              <button type="submit" class="btn btn-primary">Get TIN</button>
+                              <button id="getTinBtn" type="submit" class="btn btn-primary">Get TIN</button>
                             </form>
                           </div>
 
@@ -287,7 +349,7 @@
                                 <input type="text" id="new-description" placeholder="Enter Description" class="form-control" /> 
                               </div>
 
-                              <button type="submit" class="btn btn-primary">Create</button>
+                              <button id="manualsubmitBtn" type="submit" class="btn btn-primary">Create</button>
                             </form>
                           </div>
                         </div>

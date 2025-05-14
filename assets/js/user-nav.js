@@ -165,7 +165,10 @@ $(".sidebarMenuuu").html(`
 
 $("#footer").html(`
   <div class="copyright">
-    <p>Copyright © Invoicing 2025
+    <p>
+        Copyrights <a href="../index.html">© 2025 WWJD Nig ltd
+        </a> All Rights
+        Reserved.
     </p>
   </div>
 `)
@@ -209,28 +212,9 @@ document.addEventListener("DOMContentLoaded", async () =>{
     const businessOwner = result.data;
 
     document.querySelector(".header-info2 h4").innerText = businessOwner.business_name || "Business Name";
-    // document.querySelector("#b-name").innerText = businessOwner.business_name || "Business Name";
-    // document.querySelector("#sect-name").innerText = businessOwner.business_type || "Sector";
-    // const websLink = document.querySelector("#webs-name")
-    // websLink.innerText = businessOwner.website || "website";
-    // websLink.href = businessOwner.website || "#";
-    // document.querySelector(".info-list ul #email").innerText = businessOwner.email || "Email";
-    // document.querySelector(".info-list ul #phone").innerText = businessOwner.phone || "Phone";
-    // document.querySelector(".info-list ul #address").innerText = businessOwner.address || "Address";
-    // document.querySelector(".info-list ul #state").innerText = businessOwner.state || "State";
-    // document.querySelector(".info-list ul #lga").innerText = businessOwner.lga + " LGA" || "LGA";
-    // document.querySelector(".info-list ul #tin").innerText = businessOwner.tin || "TIN";
-    // document.querySelector(".info-list ul #cac").innerText = businessOwner.cac_number || "CAC Number";
-    // document.querySelector(".info-list ul #id-type").innerText = businessOwner.id_type || "IID Type";
-    // document.querySelector(".info-list ul #id-number").innerText = businessOwner.id_number || "ID Number";
-    // document.querySelector(".info-list ul #staff-quota").innerText = businessOwner.staff_quota || "Staff Quota";
-    // document.querySelector(".info-list ul #date").innerText = businessOwner.created_at || "Date Created";
-    
-    // document.querySelector(".card-footer #status span").innerText = businessOwner.status || "Status";
-    // document.querySelector(".card-footer #status span").classList.add(businessOwner.status === "Active" ? "text-success" : "text-danger");
-
-
+  
     localStorage.setItem("userId", businessOwner.id);
+    // localStorage.setItem("userTin", businessOwner.tin);
     // const businessOwn = localStorage.getItem("userId");
 
   } catch (error) {

@@ -29,6 +29,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         // Populate the table with the payment history data
         demandNotice.forEach((notice, index) => {
+
+            const dueDate = new Date(notice.created_at);
+            const formattedDueDate = dueDate.toISOString().split('T')[0];
+
             dataTable.row.add([
                 index + 1, // Add the index (row number), starting from 1
                 notice.business_name || "N/A",
@@ -36,7 +40,8 @@ document.addEventListener("DOMContentLoaded", async () => {
                 notice.demand_notice_number || "N/A",
                 notice.revenue_head || "N/A",
                 notice.amount || "N/A",
-                notice.created_at || "N/A",
+                // notice.created_at || "N/A",
+                formattedDueDate || "N/A",
                 `${notice.agent_first_name || ""} ${notice.agent_last_name || ""}`,
                 notice.status || "N/A",
                 `<button class="view-btn btn btn-outline-success" data-id="${notice.demand_notice_number}">View</button>`
@@ -51,7 +56,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     $(document).on('click', '.view-btn', function() {
         const id = $(this).data('id'); // get the ID
         // const url = `${basePath}/demand-notice/view/${id}`;
-        const url = `../agent/view-demand-notice.html?id=${id}`;
+        const url = `../shared/view-demand-notice.html?id=${id}`;
     
         window.open(url, '_blank');
     });

@@ -125,10 +125,14 @@ public function updateProfile($id) {
         $response = $this->businessOwnersModel->getAllInactiveBusinessOwnersCount();
         return json_encode($response);
     }
+
+    // public function getAgentByBusinessOwnerId($id){
+    //     $response = $this->businessOwnersModel->getAgentByBusinessOwnerId($id);
+    //     return json_encode($response);
+    // }
     
 
 }
 
 
 
- 

@@ -160,6 +160,10 @@ document.getElementById("edit-profile-form").addEventListener("submit", async (e
     state: document.querySelector(".profile-form #edit-states").value,
     lga: document.querySelector(".profile-form #edit-lga").value,
   };
+
+  const updateBtn = document.getElementById("updateBtn");
+  const originalText = updateBtn.innerHTML; // Save the original button text
+  updateBtn.innerHTML = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Updating...`;
   
   try {
 
@@ -190,6 +194,10 @@ document.getElementById("edit-profile-form").addEventListener("submit", async (e
 
   } catch (error) {
     console.error("Error editing business owner:", error);
+  }
+  finally {
+    updateBtn.innerHTML = originalText; // Restore the original button text
+    updateBtn.disabled = false; // Re-enable the button
   }
 });
 

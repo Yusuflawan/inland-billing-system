@@ -2,6 +2,8 @@
 // const basePath = 'http://localhost:8080/billing-system/backend';
 // const basePath = 'http://208.115.219.90/~premisre/backend';
 
+const tin = localStorage.getItem("userTin");
+
 document.addEventListener("DOMContentLoaded", async () => {
     const userId = localStorage.getItem("userId"); // Get user ID from localStorage
 
@@ -36,8 +38,8 @@ document.addEventListener("DOMContentLoaded", async () => {
             dataTable.row.add([
                 index + 1,
                 // payment.id || "N/A",
-                payment.paid_on || "N/A",
-                payment.notice_id || "N/A",
+                payment.payment_date || "N/A",
+                payment.notice_number || "N/A",
                 payment.amount || "N/A",
                 payment.status || "N/A"
             ]).draw(false); // Add the row and redraw the table

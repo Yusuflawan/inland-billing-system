@@ -33,9 +33,9 @@ class DemandNoticeController{
         $agentId = $data["agent_id"];
         $revenueHeadItem = $data["revenue_head_item"];
         $demandNoticeNumber = $data["demand_notice_number"];
-        // $status = $data["status"];
+        $amount = $data["amount"];
 
-        $response = $this->demandNoticeModel->createDemandNotice($businessOwnerId, $agentId, $revenueHeadItem, $demandNoticeNumber);
+        $response = $this->demandNoticeModel->createDemandNotice($businessOwnerId, $agentId, $revenueHeadItem, $demandNoticeNumber, $amount);
         return json_encode($response);
     }
     
@@ -129,8 +129,12 @@ class DemandNoticeController{
         $response = $this->demandNoticeModel->getPaymentAmount($business_owner_id, $revenue_head_id);
         return json_encode($response);
     }
+
+    public function updateDemandNoticeStatus($demandNoticeNumber){
+        $response = $this->demandNoticeModel->updateDemandNoticeStatus($demandNoticeNumber);
+        return json_encode($response);
+    }
     
 
 }
-
 

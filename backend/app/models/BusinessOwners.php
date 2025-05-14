@@ -208,9 +208,15 @@ class BusinessOwners{
     public function getPaymentHistory($businessOwnerId){
 
         try {
-            $sql = "SELECT * FROM payment_history WHERE business_owner_id = :business_owner_id";
+        $businessOwner = $this->getBusinessOwnerById($businessOwnerId);
+        if ($businessOwner["status"] == "error") {
+            return ["status" => "error", "message" => $businessOwner["message"]];
+        }
+        $tin = $businessOwner["data"]['tin'];
+
+            $sql = "SELECT * FROM payment_history WHERE tin = :tin";
             $stmt = $this->db->prepare($sql);
-            $stmt->bindParam(':business_owner_id', $businessOwnerId, PDO::PARAM_INT);
+            $stmt->bindParam(':tin', $tin, PDO::PARAM_INT);
             $stmt->execute();
             $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 

@@ -204,7 +204,10 @@ $(".sidebarMenuuu").html(`
 
 $("#footer").html(`
   <div class="copyright">
-    <p>Copyright © Invoicing 2025
+    <p>
+        Copyrights <a href="index.html">© 2025 WWJD Nig ltd
+        </a> All Rights
+        Reserved.
     </p>
   </div>
 `)

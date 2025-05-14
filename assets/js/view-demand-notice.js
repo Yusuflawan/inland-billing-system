@@ -26,30 +26,35 @@ async function fetchDemandNotice() {
         if (!response.ok) {
             throw new Error("Failed to fetch demand notice");
         }
-
+ 
         const result = await response.json();
         const notice = result.data[0]; // Access the first object in the data array
 
         if (notice) {
             console.log(notice); // Check the response in the console
-
+        
             // Step 3: Set the fields using the data
-          // Assuming notice contains the data returned from the SQL query
             document.getElementById("demand-notice-ref-number").textContent = notice.demand_notice_number || 'N/A';
-            document.getElementById("due-date").textContent = notice.created_at || 'N/A';
-            document.getElementById("expiry-date").textContent = notice.created_at || 'N/A';
-
+        
+            // Format the due date
+            const dueDate = new Date(notice.created_at);
+            const formattedDueDate = dueDate.toISOString().split('T')[0]; // Format as YYYY-MM-DD
+            document.getElementById("due-date").textContent = formattedDueDate || 'N/A';
+        
+            // Calculate and format the expiry date (14 days after the due date)
+            const expiryDate = new Date(dueDate);
+            expiryDate.setDate(dueDate.getDate() + 14); // Add 14 days
+            const formattedExpiryDate = expiryDate.toISOString().split('T')[0]; // Format as YYYY-MM-DD
+            document.getElementById("expiry-date").textContent = formattedExpiryDate || 'N/A';
+        
             // Assuming you have IDs for business name and address too
             document.getElementById("business-name").textContent = notice.business_name || 'N/A';
             document.getElementById("business-address").textContent = notice.address || 'N/A';
-
+        
             // Set the amount value, using either amount or renewal_amount (which was handled in the SQL query)
-            document.getElementById("amount").textContent = notice.amount || 'N/A';  // This will already be either amount or renewal_amount based on the query
-
+            document.getElementById("amount").textContent = notice.amount || 'N/A'; // This will already be either amount or renewal_amount based on the query
+        
             document.getElementById("revenue-head").textContent = notice.revenue_head || 'N/A';
-
-                        
-            // document.getElementById("business-address").textContent = notice.business_address || "N/A"; // If business_address is available in your response
         } else {
             document.getElementById('notice-details').innerText = "No demand notice found.";
         }

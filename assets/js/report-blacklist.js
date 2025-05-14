@@ -25,6 +25,12 @@ document.addEventListener("DOMContentLoaded", () => {
         const address = document.getElementById("address").value.trim();
         const reason = document.getElementById("reason").value.trim();
 
+        const reportButton = document.getElementById("reportBtn");
+        // Add loader and disable the button
+        reportButton.disabled = true; // Disable the button
+        const originalText = reportButton.innerHTML; // Save the original button text
+        reportButton.innerHTML = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Reporting...`;
+
         // Prepare the payload
         const payload = {
             business_owner: fullName,
@@ -60,6 +66,11 @@ document.addEventListener("DOMContentLoaded", () => {
         } catch (error) {
             console.error("Error submitting blacklist report:", error);
             alert("An error occurred while submitting the report. Please try again.");
+        }
+        finally {
+            // Re-enable the button and reset its text
+            reportButton.disabled = false; // Re-enable the button
+            reportButton.innerHTML = originalText; // Reset the button text
         }
     });
 });

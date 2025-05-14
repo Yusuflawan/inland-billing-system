@@ -31,9 +31,9 @@ document.addEventListener("DOMContentLoaded", async () => {
                 payment.business_name || "N/A", // Full Name
                 payment.tin || "N/A", // Taxpayer Identification Number
                 payment.amount || "N/A", // Payment Amount
-                payment.payment_method || "N/A", // Payment Method
-                payment.paid_on || "N/A", // Payment Date
-                payment.demand_notice_number || "N/A", // Notice ID
+                // payment.payment_method || "N/A", // Payment Method
+                payment.payment_date || "N/A", // Payment Date
+                payment.notice_number || "N/A", // Notice ID
                 payment.status || "N/A", // Payment Status
             ]).draw(false); // Add the row and redraw the table
         });

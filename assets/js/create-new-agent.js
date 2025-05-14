@@ -124,6 +124,12 @@ lgaSelect.addEventListener("change", async (e) => {
         const password = document.getElementById("password").value.trim();
         const confirmPassword = document.getElementById("confirmPassword").value.trim();
 
+        const submitButton = document.getElementById("submitBtn");
+        // Add loader and disable the button
+        submitButton.disabled = true; // Disable the button
+        const originalText = submitButton.innerHTML; // Save the original button text
+        submitButton.innerHTML = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Creating Agent...`;
+
         // Validate inputs
         if (!firstName || !lastName || !email || !phone || !state || !lga || !address) {
             displayMessage("Please fill in all required fields.", "red");
@@ -167,9 +173,15 @@ lgaSelect.addEventListener("change", async (e) => {
             }
 
             alert(result.message); // Show success message
+            window.location.href = "agent-management.html"; // Redirect to login page
 
         } catch (error) {
             console.error("Error Creating Agent:", error);
+        }
+        // Reset the button text and enable it again
+        finally {
+            submitButton.innerHTML = originalText; // Reset button text
+            submitButton.disabled = false; // Enable the button
         }
 
     });

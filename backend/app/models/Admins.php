@@ -100,23 +100,24 @@ class Admins{
     {
         try {
             // $query = "SELECT * FROM paymentHistory";
-            $query = "
-            SELECT 
+            $query = "SELECT 
                 business_owners.business_name, 
-                business_owners.tin, 
-                payment_history.paid_on, 
+                -- business_owners.tin, 
+                payment_history.tin, 
+                payment_history.payment_date, 
                 payment_history.amount, 
-                payment_history.payment_method,
-                payment_history.notice_id,
-                demand_notices.demand_notice_number
+                payment_history.status, 
+                -- payment_history.payment_method,
+                payment_history.notice_number
+                -- demand_notices.demand_notice_number
             FROM 
                 business_owners 
             INNER JOIN 
                 payment_history 
-            ON 
-                business_owners.id = payment_history.business_owner_id 
-            INNER JOIN demand_notices
-                ON demand_notices.id = payment_history.notice_id
+            ON
+                business_owners.tin = payment_history.tin 
+            -- INNER JOIN demand_notices
+                -- ON demand_notices.id = payment_history.notice_id
             ";
 
         $stmt = $this->db->prepare($query);

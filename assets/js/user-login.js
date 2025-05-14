@@ -18,6 +18,7 @@ function displayMessage(message, color) {
         // Get input values
         const email = document.getElementById('email').value.trim();
         const password = document.getElementById('password').value.trim();
+        const loginButton = document.getElementById('loginBtn');
 
         // Validate inputs
         if (!email || !password) {
@@ -25,6 +26,11 @@ function displayMessage(message, color) {
             displayMessage('Please enter both email and password.', "red");
             return;
         }
+
+        // Add loader and disable the button
+        loginButton.disabled = true; // Disable the button
+        const originalText = loginButton.innerHTML; // Save the original button text
+        loginButton.innerHTML = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Logging in...`;
 
         try {
             // Send login request
@@ -85,7 +91,85 @@ function displayMessage(message, color) {
             console.error('An error occurred:', error);
             document.getElementById('message').innerText = 'An unexpected error occurred. Please try again later.';
         }
+        finally {
+            // Remove loader and re-enable the button
+            loginButton.disabled = false; // Re-enable the button
+            loginButton.innerHTML = originalText; // Restore the original button text
+        }
 
     });
 
 });
+
+
+
+
+
+
+
+
+
+
+// $("#loginBtn").on("click", (e) => {
+//   e.preventDefault();
+//   let emailAdd = document.querySelector("#emailAdd").value;
+//   let password = document.querySelector("#password").value;
+
+//   if (emailAdd === "" || password === "") {
+//     $("#msg").html(`
+//       <p class="text-danger text-center mt-4 text-lg">Please fill in all fields</p>
+//     `);
+
+//     return;
+//   }
+
+//   // $("#msg").html(`
+//   //   <div class="loader">
+//   //     <div class="rotating-dots">
+//   //       <div></div>
+//   //       <div></div>
+//   //       <div></div>
+//   //       <div></div>
+//   //     </div>
+//   //   </div>
+//   // `);
+
+//   $("#loginBtn")
+//     .prop("disabled", true)
+//     .html(
+//       '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Login...'
+//     );
+
+//   const loginData = {
+//     email: emailAdd,
+//     password: password,
+//   };
+
+//   $.ajax({
+//     type: "POST",
+//     url: ${HOST}/taxpayer-login,
+//     data: JSON.stringify(loginData),
+//     dataType: "json",
+//     success: function (data) {
+//       console.log(data);
+//       if (data.status === "error") {
+//         $("#msg").html(`
+//           <p class="text-danger bg-red-100 p-1 rounded text-center mt-4 text-lg">${data.message}</p>
+//         `);
+//         $("#loginBtn").removeClass("hidden");
+//       } else if (data.status === "success") {
+//         localStorage.setItem("userSession", data.token);
+//         fetchProfile(data.token);
+//       }
+//     },
+//     error: function (request, error) {
+//       console.log(error);
+//       $("#msg").html(`
+//         <p class="text-danger bg-red-100 p-1 rounded text-center mt-4 text-lg">Something went wrong try again !</p>
+//       `);
+//     },
+//     complete: function () {
+//       $("#loginBtn").prop("disabled", false).html("Log In");
+//     },
+//   });
+// });

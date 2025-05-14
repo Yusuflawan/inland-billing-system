@@ -27,6 +27,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         const dataTable = $(".display").DataTable();
 
         businesses.forEach((business, index) => {
+
+            const dueDate = new Date(business.created_at);
+            const formattedDueDate = dueDate.toISOString().split('T')[0];
+
             dataTable.row.add([
                 index + 1,
                 business.business_owner || "N/A",
@@ -35,7 +39,8 @@ document.addEventListener("DOMContentLoaded", async () => {
                 business.email || "N/A",
                 business.address || "N/A",
                 (business.first_name || "N/A") + " " +( business.last_name || "N/A"),
-                business.created_at || "N/A",
+                // business.created_at || "N/A",
+                formattedDueDate || "N/A",
                 business.reason || "N/A"
             ]).draw(false); // Add the row and redraw the table
         });
